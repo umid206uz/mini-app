@@ -3,6 +3,8 @@
 /** @var yii\web\View $this */
 /** @var common\models\Category $categories */
 /** @var common\models\Category $category */
+/** @var common\models\Product $products */
+/** @var common\models\Product $product */
 
 $this->title = 'Mini app';
 ?>
@@ -38,6 +40,7 @@ $this->title = 'Mini app';
     </div>
 
     <div class="row">
+        <?php foreach ($products as $product):?>
         <div class="col-6 col-md-4 col-lg-3">
             <div class="card shadow-sm product mb-4" data-category="lemon">
                 <div class="card-body">
@@ -45,11 +48,11 @@ $this->title = 'Mini app';
                         <img src="template/img/product1.png" alt="">
                     </figure>
                     <p class="mb-1">
-                        <small class="text-opac">Fresh</small>
+                        <small class="text-opac"><?=$product->category->name_uz?></small>
                         <small class="float-end"><span class="text-opac">4.5</span> <i class="bi bi-star-fill text-warning"></i></small>
                     </p>
                     <a href="product.html" class="text-normal">
-                        <h6 class="text-color-theme">Red Apple</h6>
+                        <h6 class="text-color-theme"><?=$product->name_uz?></h6>
                     </a>
                     <div class="row">
                         <div class="col">
@@ -65,90 +68,7 @@ $this->title = 'Mini app';
                 </div>
             </div>
         </div>
-
-        <div class="col-6 col-md-4 col-lg-3">
-            <div class="card shadow-sm product mb-4">
-                <div class="card-body">
-                    <figure class="text-center">
-                        <img src="template/img/product2.png" alt="">
-                    </figure>
-                    <p class="mb-1">
-                        <small class="text-opac">Protein</small>
-                        <small class="float-end"><span class="text-opac">4.5</span> <i class="bi bi-star-fill text-warning"></i></small>
-                    </p>
-                    <a href="product.html" class="text-normal">
-                        <h6 class="text-color-theme">Best Banana</h6>
-                    </a>
-                    <div class="row">
-                        <div class="col">
-                            <p class="mb-0">$8.00<br><small class="text-opac">per 12 pcs</small></p>
-                        </div>
-                        <div class="col-auto">
-                            <button class="btn btn-sm avatar avatar-30 p-0 rounded-circle shadow btn-gradient"
-                                    data-bs-toggle="modal" data-bs-target="#addproductcart">
-                                <i class="bi bi-plus size-22"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-6 col-md-4 col-lg-3">
-            <div class="card shadow-sm product mb-4">
-                <div class="card-body">
-                    <figure class="text-center">
-                        <img src="template/img/product3.png" alt="">
-                    </figure>
-                    <p class="mb-1">
-                        <small class="text-opac">Fresh</small>
-                        <small class="float-end"><span class="text-opac">4.5</span> <i class="bi bi-star-fill text-warning"></i></small>
-                    </p>
-                    <a href="product.html" class="text-normal">
-                        <h6 class="text-color-theme">Watermelon</h6>
-                    </a>
-                    <div class="row">
-                        <div class="col">
-                            <p class="mb-0">$11.00<br><small class="text-opac">per 1 kg</small></p>
-                        </div>
-                        <div class="col-auto">
-                            <button class="btn btn-sm avatar avatar-30 p-0 rounded-circle shadow btn-gradient"
-                                    data-bs-toggle="modal" data-bs-target="#addproductcart">
-                                <i class="bi bi-plus size-22"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-6 col-md-4 col-lg-3">
-            <div class="card shadow-sm product mb-4">
-                <div class="card-body">
-                    <figure class="text-center">
-                        <img src="template/img/product4.png" alt="">
-                    </figure>
-                    <p class="mb-1">
-                        <small class="text-opac">Fresh</small>
-                        <small class="float-end"><span class="text-opac">4.5</span> <i class="bi bi-star-fill text-warning"></i></small>
-                    </p>
-                    <a href="product.html" class="text-normal">
-                        <h6 class="text-color-theme">Yellow Lemon</h6>
-                    </a>
-                    <div class="row">
-                        <div class="col">
-                            <p class="mb-0">$8.00<br><small class="text-opac">per 1 kg</small></p>
-                        </div>
-                        <div class="col-auto">
-                            <button class="btn btn-sm avatar avatar-30 p-0 rounded-circle shadow btn-gradient"
-                                    data-bs-toggle="modal" data-bs-target="#addproductcart">
-                                <i class="bi bi-plus size-22"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php endforeach;?>
     </div>
 
     <!-- Categories -->
