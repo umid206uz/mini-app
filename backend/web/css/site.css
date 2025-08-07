@@ -18,6 +18,10 @@ main > .container {
     font-style: italic;
 }
 
+.help-block {
+    color: red;
+}
+
 /* add sorting icons to gridview sort links */
 a.asc:after, a.desc:after {
     content: '';
