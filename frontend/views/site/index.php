@@ -1,8 +1,10 @@
 <?php
 
 /** @var yii\web\View $this */
+/** @var common\models\Category $categories */
+/** @var common\models\Category $category */
 
-$this->title = 'My Yii Application';
+$this->title = 'Mini app';
 ?>
 <!-- main page content -->
 <div class="main-container container">
@@ -12,134 +14,16 @@ $this->title = 'My Yii Application';
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
             <!-- Slides -->
+            <?php foreach ($categories as $category):?>
             <div class="swiper-slide" data-category="fruits">
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <img src="template/img/berry-small.png" alt="">
                     </div>
                 </div>
-                <p class="categoryname">Fruits</p>
+                <p class="categoryname"><?=$category->name_uz?></p>
             </div>
-            <div class="swiper-slide" data-category="lemon">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <img src="template/img/lemon-small.png" alt="">
-                    </div>
-                </div>
-                <p class="categoryname">Lemon</p>
-            </div>
-            <div class="swiper-slide">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <img src="template/img/banana-small.png" alt="">
-                    </div>
-                </div>
-                <p class="categoryname">Banana</p>
-            </div>
-            <div class="swiper-slide">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <img src="template/img/apple-small.png" alt="">
-                    </div>
-                </div>
-                <p class="categoryname">Apple</p>
-            </div>
-            <div class="swiper-slide">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <img src="template/img/berry-small.png" alt="">
-                    </div>
-                </div>
-                <p class="categoryname">Fruits</p>
-            </div>
-            <div class="swiper-slide">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <img src="template/img/lemon-small.png" alt="">
-                    </div>
-                </div>
-                <p class="categoryname">Lemon</p>
-            </div>
-            <div class="swiper-slide">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <img src="template/img/banana-small.png" alt="">
-                    </div>
-                </div>
-                <p class="categoryname">Banana</p>
-            </div>
-            <div class="swiper-slide">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <img src="template/img/apple-small.png" alt="">
-                    </div>
-                </div>
-                <p class="categoryname">Apple</p>
-            </div>
-            <div class="swiper-slide">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <img src="template/img/berry-small.png" alt="">
-                    </div>
-                </div>
-                <p class="categoryname">Fruits</p>
-            </div>
-            <div class="swiper-slide">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <img src="template/img/lemon-small.png" alt="">
-                    </div>
-                </div>
-                <p class="categoryname">Lemon</p>
-            </div>
-            <div class="swiper-slide">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <img src="template/img/banana-small.png" alt="">
-                    </div>
-                </div>
-                <p class="categoryname">Banana</p>
-            </div>
-            <div class="swiper-slide">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <img src="template/img/apple-small.png" alt="">
-                    </div>
-                </div>
-                <p class="categoryname">Apple</p>
-            </div>
-            <div class="swiper-slide">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <img src="template/img/berry-small.png" alt="">
-                    </div>
-                </div>
-                <p class="categoryname">Fruits</p>
-            </div>
-            <div class="swiper-slide">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <img src="template/img/lemon-small.png" alt="">
-                    </div>
-                </div>
-                <p class="categoryname">Lemon</p>
-            </div>
-            <div class="swiper-slide">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <img src="template/img/banana-small.png" alt="">
-                    </div>
-                </div>
-                <p class="categoryname">Banana</p>
-            </div>
-            <div class="swiper-slide">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <img src="template/img/apple-small.png" alt="">
-                    </div>
-                </div>
-                <p class="categoryname">Apple</p>
-            </div>
+            <?php endforeach;?>
         </div>
     </div>
 
