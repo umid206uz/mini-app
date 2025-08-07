@@ -28,6 +28,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name_en') ?>
 
+    <?php // echo $form->field($model, 'description_uz') ?>
+
+    <?php // echo $form->field($model, 'description_ru') ?>
+
+    <?php // echo $form->field($model, 'description_en') ?>
+
     <?php // echo $form->field($model, 'filename') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>

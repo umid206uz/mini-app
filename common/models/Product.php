@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "product".
@@ -12,20 +14,23 @@ use Yii;
  * @property string $name_uz
  * @property string $name_ru
  * @property string $name_en
+ * @property string|null $description_uz
+ * @property string|null $description_ru
+ * @property string|null $description_en
  * @property string $filename
  * @property int $created_at
  * @property int $updated_at
  *
  * @property Category $category
  */
-class Product extends \yii\db\ActiveRecord
+class Product extends ActiveRecord
 {
 
 
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'product';
     }
@@ -36,9 +41,11 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['description_uz', 'description_ru', 'description_en'], 'default', 'value' => null],
             [['created_at'], 'default', 'value' => 1754549275],
             [['category_id', 'name_uz', 'name_ru', 'name_en', 'filename', 'updated_at'], 'required'],
             [['category_id', 'created_at', 'updated_at'], 'integer'],
+            [['description_uz', 'description_ru', 'description_en'], 'string'],
             [['name_uz', 'name_ru', 'name_en', 'filename'], 'string', 'max' => 100],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
         ];
@@ -47,7 +54,7 @@ class Product extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => Yii::t('app', 'ID'),
@@ -55,6 +62,9 @@ class Product extends \yii\db\ActiveRecord
             'name_uz' => Yii::t('app', 'Name Uz'),
             'name_ru' => Yii::t('app', 'Name Ru'),
             'name_en' => Yii::t('app', 'Name En'),
+            'description_uz' => Yii::t('app', 'Description Uz'),
+            'description_ru' => Yii::t('app', 'Description Ru'),
+            'description_en' => Yii::t('app', 'Description En'),
             'filename' => Yii::t('app', 'Filename'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
@@ -64,9 +74,9 @@ class Product extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Category]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getCategory()
+    public function getCategory(): ActiveQuery
     {
         return $this->hasOne(Category::class, ['id' => 'category_id']);
     }
