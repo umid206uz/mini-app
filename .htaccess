@@ -25,6 +25,6 @@ RewriteRule . /backend/web/index.php
 
 RewriteRule .*\.()$ - [F,NC]
 
-#RewriteEngine On
-#RewriteCond %{HTTPS} off
-#RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
