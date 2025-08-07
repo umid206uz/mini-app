@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Category;
+use kartik\file\FileInput;
 use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -33,6 +34,13 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'description_en')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'filename')->textInput(['maxlength' => true]) ?>
+
+    <div class="row container">
+        <?= $form->field($model, 'filename')->widget(FileInput::classname(), [
+            'options' => ['accept' => 'image/*']
+        ]); ?>
+    </div>
+
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
