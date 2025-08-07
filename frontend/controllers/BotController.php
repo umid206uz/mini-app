@@ -34,7 +34,7 @@ class BotController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex(): string
     {
         return $this->render('index');
     }
