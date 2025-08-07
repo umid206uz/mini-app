@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "category".
@@ -56,7 +57,7 @@ class Category extends ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => Yii::t('app', 'ID'),
@@ -77,6 +78,11 @@ class Category extends ActiveRecord
     public function getProducts(): ActiveQuery
     {
         return $this->hasMany(Product::class, ['category_id' => 'id']);
+    }
+
+    public static function getList(): array
+    {
+        return ArrayHelper::map(self::find()->all(), 'id', 'name_uz');
     }
 
 }

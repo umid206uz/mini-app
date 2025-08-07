@@ -12,4 +12,9 @@ return [
     "Update" => "O'zgartirish",
     "Delete" => "O'chirish",
     "Save" => "Saqlash",
+    "Category name" => "Kategoriya nomi",
+    "Select a category" => "Kategoriyani tanlang",
+    "Description Uz" => "Qo'shimcha ma'lumot (O'zbekcha)",
+    "Description Ru" => "Qo'shimcha ma'lumot (Ruscha)",
+    "Description En" => "Qo'shimcha ma'lumot (Inglizcha)",
 ];

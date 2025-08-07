@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Category;
 use common\models\Product;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -32,17 +33,26 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'category_id',
+            [
+                'attribute' => 'category_id',
+                'value' => function($model){
+                    return $model->category->name_uz;
+                },
+                'filterType' => GridView::FILTER_SELECT2,
+                'filter' => Category::getList(),
+                'filterWidgetOptions' => [
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ],
+                'filterInputOptions' => [
+                    'placeholder' => Yii::t('app', 'Select a category'),
+                ]
+            ],
             'name_uz',
             'name_ru',
             'name_en',
-            //'description_uz:ntext',
-            //'description_ru:ntext',
-            //'description_en:ntext',
-            //'filename',
-            //'created_at',
-            //'updated_at',
+
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Product $model, $key, $index, $column) {

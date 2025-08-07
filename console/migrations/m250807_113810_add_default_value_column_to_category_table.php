@@ -20,6 +20,6 @@ class m250807_113810_add_default_value_column_to_category_table extends Migratio
      */
     public function safeDown()
     {
-        $this->alterColumn('product', 'updated_at', $this->integer());
+        $this->alterColumn('category', 'updated_at', $this->integer());
     }
 }
