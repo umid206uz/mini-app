@@ -15,7 +15,7 @@ return [
     'bootstrap' => ['log'],
     'modules' => [
         'gridview' =>  [
-            'class' => '\kartik\grid\Module'
+            'class' => 'kartik\grid\Module'
         ]
     ],
     'components' => [
@@ -56,13 +56,8 @@ return [
                 'app*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@common/translations',
-                    'sourceLanguage' => 'en',
-                ],
-                'yii' => [
-                    'class' => 'yii\i18n\PhpMessageSource',
-                    'basePath' => '@common/translations',
                     'sourceLanguage' => 'en'
-                ],
+                ]
             ],
         ],
 
