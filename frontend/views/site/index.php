@@ -6,7 +6,19 @@
 /** @var common\models\Product $products */
 /** @var common\models\Product $product */
 
+use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\bootstrap5\Modal;
+
 $this->title = 'Mini app';
+$this->registerJs(<<<JS
+$('.modalButton').click(function(){
+    $('#myModal').modal('show')
+        .find('#modalContent')
+        .load($(this).attr('value'));
+});
+JS
+    ,3)
 ?>
 <!-- main page content -->
 <div class="main-container container">
@@ -59,10 +71,11 @@ $this->title = 'Mini app';
                             <p class="mb-0">$12.00<br><small class="text-opac">per 1 kg</small></p>
                         </div>
                         <div class="col-auto">
-                            <button class="btn btn-sm avatar avatar-30 p-0 rounded-circle shadow btn-gradient"
-                                    data-bs-toggle="modal" data-bs-target="#addproductcart">
-                                <i class="bi bi-plus size-22"></i>
-                            </button>
+                            <?= Html::button('<i class="bi bi-plus size-22"></i>', [
+                                'class' => 'btn btn-sm avatar avatar-30 p-0 rounded-circle shadow btn-gradient modalButton',
+                                'value' => Url::to(['site/product', 'id' => $product->id]),
+                            ]);
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -470,3 +483,15 @@ $this->title = 'Mini app';
     </div>
 </div>
 <!-- main page content ends -->
+<?php
+Modal::begin([
+    'id' => "myModal",
+    "size" => "modal-lg",
+]);
+
+echo "<div id='modalContent'>
+    
+    </div>";
+
+Modal::end();
+?>

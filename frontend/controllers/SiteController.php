@@ -2,12 +2,14 @@
 
 namespace frontend\controllers;
 
+use common\models\Cart;
 use common\models\Category;
 use common\models\Product;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\db\Exception;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -17,6 +19,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use yii\web\Response;
 
 /**
  * Site controller
@@ -31,15 +34,15 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout', 'signup'],
+                'only' => ['logout', 'signup', 'add'],
                 'rules' => [
                     [
-                        'actions' => ['signup'],
+                        'actions' => ['signup', 'add'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout', 'add'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -84,6 +87,65 @@ class SiteController extends Controller
             'products' => $products,
         ]);
     }
+
+    public function actionProduct($id): string
+    {
+        $product = Product::findOne($id);
+        return $this->renderAjax('product', [
+            'product' => $product
+        ]);
+    }
+
+    public function actionAdd(): array
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $product_id = Yii::$app->request->get('product_id');
+        $quantity = (int) Yii::$app->request->get('quantity',1);
+
+        if (!$product_id || $quantity < 1) {
+            return ['success' => false, 'error' => 'Noto‘g‘ri maʼlumotlar kiritildi.'];
+        }
+
+        $product = Product::findOne($product_id);
+        if (!$product) {
+            return ['success' => false, 'error' => 'Mahsulot topilmadi.'];
+        }
+
+        $user_id = Yii::$app->user->id ?? null;
+        if (!$user_id) {
+            return ['success' => false, 'error' => 'Foydalanuvchi aniqlanmadi.'];
+        }
+
+        $cartItem = Cart::findOne(['user_id' => $user_id, 'product_id' => $product_id]);
+        if ($cartItem) {
+            $cartItem->quantity += $quantity;
+        } else {
+            $cartItem = new Cart([
+                'product_id' => $product_id,
+                'quantity' => $quantity,
+                'price' => $product->price,
+                'user_id' => $user_id,
+            ]);
+        }
+
+        if ($cartItem->save()) {
+            $cartCount = Cart::find()->where(['user_id' => $user_id])->count();
+            return [
+                'success' => true,
+                'count' => $cartCount,
+                'message' => 'Mahsulot savatchaga qo‘shildi.'
+            ];
+        }
+
+        return [
+            'success' => false,
+            'error' => 'Saqlashda xatolik.',
+            'details' => $cartItem->getErrors(),
+        ];
+    }
+
+
 
     /**
      * Logs in a user.

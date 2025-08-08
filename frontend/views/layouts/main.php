@@ -3,6 +3,7 @@
 /** @var \yii\web\View $this */
 /** @var string $content */
 
+use common\models\Cart;
 use frontend\assets\AppAsset;
 use yii\bootstrap5\Html;
 AppAsset::register($this);
@@ -185,36 +186,36 @@ AppAsset::register($this);
     <div class="container">
         <ul class="nav nav-pills nav-justified">
             <li class="nav-item">
-                <a class="nav-link active" href="home.html">
-                        <span>
-                            <i class="nav-icon bi bi-house"></i>
-                            <span class="nav-text">Home</span>
-                        </span>
+                <a class="nav-link active" href="/">
+                    <span>
+                        <i class="nav-icon bi bi-house"></i>
+                        <span class="nav-text">Home</span>
+                    </span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="stats.html">
-                        <span>
-                            <i class="nav-icon bi bi-bar-chart-line"></i>
-                            <span class="nav-text">Stats</span>
-                        </span>
+                <a class="nav-link" href="#">
+                    <span>
+                        <i class="nav-icon bi bi-bar-chart-line"></i>
+                        <span class="nav-text">Stats</span>
+                    </span>
                 </a>
             </li>
             <li class="nav-item center-item">
-                <a class="nav-link" href="cart.html">
-                        <span>
-                            <i class="nav-icon bi bi-bag"></i>
-                            <span class="nav-text">Cart</span>
-                            <span class="countercart">3</span>
-                        </span>
+                <a class="nav-link" href="#">
+                    <span>
+                        <i class="nav-icon bi bi-bag"></i>
+                        <span class="nav-text"><?=Yii::t("app","Cart")?></span>
+                        <span class="countercart"><?= Cart::find()->where(['user_id' => Yii::$app->user->id])->count()?></span>
+                    </span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="style.html">
-                        <span>
-                            <i class="nav-icon bi bi-palette"></i>
-                            <span class="nav-text">Style</span>
-                        </span>
+                <a class="nav-link" href="#">
+                    <span>
+                        <i class="nav-icon bi bi-palette"></i>
+                        <span class="nav-text">Style</span>
+                    </span>
                 </a>
             </li>
             <li class="nav-item">
@@ -339,92 +340,8 @@ AppAsset::register($this);
             </div>
         </div>
     </div>
-
-    <div id="toastprouctadded" class="toast shadow hide mb-3" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-            <strong class="me-auto"><i class="bi bi-bag me-1"></i> Congtratulations!!!</strong>
-            <small>Just Now</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-            <h6 class="mb-0">Your product has been added to cart</h6>
-            <p class="text-opac">This position can be changed and applied as per desired location.</p>
-        </div>
-    </div>
-
-    <div id="toastprouctaddedrich" class="toast border-0 shadow hide mb-3" role="alert" aria-live="assertive"
-         aria-atomic="true">
-        <div class="toast-header">
-            <strong class="me-auto">
-                <i class="bi bi-basket text-color-theme rounded-circle me-1"></i>
-                Product added to cart
-            </strong>
-            <small>Just Now</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-            <div class="row gx-3">
-                <div class="col-auto">
-                    <div class="avatar avatar-60 rounded page-bg p-2">
-                        <img src="template/img/product2.png" alt="" class="mw-100">
-                    </div>
-                </div>
-                <div class="col align-self-center">
-                    <h6 class="mb-1 text-color-theme">Raybans Sunglasses</h6>
-                    <p>
-                        <span class="text-opac">Delivered on April 12</span>
-                        <span class="float-end"><strong>$ 150</strong></span>
-                    </p>
-                </div>
-                <div class="col-auto align-self-center">
-                    <i class="text-opac bi bi-chevron-right"></i>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 <!-- event action toast messages ends -->
-
-<!-- add cart modal -->
-<div class="modal fade" id="addproductcart" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered">
-        <div class="modal-content product border-0 shadow-sm">
-            <figure class="text-center mb-0 px-5 py-3">
-                <img src="template/img/apple.png" alt="" class="mw-100">
-            </figure>
-            <div class="modal-body">
-                <p class="mb-1">
-                    <small class="text-opac">Fresh</small>
-                    <small class="float-end"><span class="text-opac">4.5</span> <i class="bi bi-star-fill text-warning"></i></small>
-                </p>
-                <a href="product.html" class="text-normal">
-                    <h6 class="text-color-theme">Red Apple</h6>
-                </a>
-                <div class="row">
-                    <div class="col">
-                        <p class="mb-0">$12.00<br><small class="text-opac">per 1 kg</small></p>
-                    </div>
-                    <div class="col-auto">
-                        <!-- button counter increamenter-->
-                        <div class="counter-number">
-                            <button class="btn btn-sm avatar avatar-30 p-0 rounded-circle">
-                                <i class="bi bi-dash size-22"></i>
-                            </button>
-                            <span>1</span>
-                            <button class="btn btn-sm avatar avatar-30 p-0 rounded-circle">
-                                <i class="bi bi-plus size-22"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-link text-color-theme" data-bs-dismiss="modal">Done</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- add cart modal ends -->
 
 <!-- PWA app install toast message -->
 <div class="position-fixed bottom-0 start-50 translate-middle-x  z-index-9">

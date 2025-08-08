@@ -19,7 +19,7 @@ class m250807_063708_create_category_table extends Migration
             'name_en' => $this->string(100)->notNull(),
             'filename' => $this->string(100)->notNull(),
             'created_at' => $this->integer()->notNull()->defaultValue(time()),
-            'updated_at' => $this->integer()->notNull()
+            'updated_at' => $this->integer()->notNull()->defaultValue(time())
         ]);
     }
 

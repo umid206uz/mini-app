@@ -52,6 +52,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'name_uz',
             'name_ru',
             'name_en',
+            'price',
+            'status',
 
             [
                 'class' => ActionColumn::className(),

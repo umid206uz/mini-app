@@ -41,6 +41,8 @@ YiiAsset::register($this);
             'description_ru:ntext',
             'description_en:ntext',
             'filename',
+            'price',
+            'status',
             [
                 'attribute' => 'created_at',
                 'format' => 'dateTime'

@@ -11,6 +11,8 @@ use yii\db\ActiveRecord;
  *
  * @property int $id
  * @property int $category_id
+ * @property int $price
+ * @property int $status
  * @property string $name_uz
  * @property string $name_ru
  * @property string $name_en
@@ -44,8 +46,9 @@ class Product extends ActiveRecord
             [['description_uz', 'description_ru', 'description_en'], 'default', 'value' => null],
             [['created_at'], 'default', 'value' => time()],
             [['updated_at'], 'default', 'value' => time()],
-            [['category_id', 'name_uz', 'name_ru', 'name_en', 'filename'], 'required'],
-            [['category_id', 'created_at', 'updated_at'], 'integer'],
+            [['status'], 'default', 'value' => 1],
+            [['category_id', 'name_uz', 'name_ru', 'name_en', 'filename', 'status', 'price'], 'required'],
+            [['category_id', 'created_at', 'updated_at', 'price', 'status'], 'integer'],
             [['description_uz', 'description_ru', 'description_en'], 'string'],
             [['name_uz', 'name_ru', 'name_en', 'filename'], 'string', 'max' => 100],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
@@ -68,6 +71,8 @@ class Product extends ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'category_id' => Yii::t('app', 'Category name'),
+            'status' => Yii::t('app', 'Status'),
+            'price' => Yii::t('app', 'Price'),
             'name_uz' => Yii::t('app', 'Name Uz'),
             'name_ru' => Yii::t('app', 'Name Ru'),
             'name_en' => Yii::t('app', 'Name En'),
