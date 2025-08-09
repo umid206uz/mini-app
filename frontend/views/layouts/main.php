@@ -332,7 +332,7 @@ AppAsset::register($this);
         <div class="toast-body">
             <div class="row">
                 <div class="col text-white">
-                    <p>Your product has been added to cart</p>
+                    <p>Mahsulot savatchaga qo'shildi</p>
                 </div>
                 <div class="col-auto">
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>

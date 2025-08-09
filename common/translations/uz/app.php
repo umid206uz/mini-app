@@ -15,6 +15,7 @@ return [
     "Status" => "Holati",
     "Price" => "Narxi",
     "Cart" => "Savatcha",
+    "Product added to cart" => "Mahsulot savatchaga qo'shildi",
     "ADD TO CART" => "Savatchaga qo'shish",
     "Category name" => "Kategoriya nomi",
     "Select a category" => "Kategoriyani tanlang",
