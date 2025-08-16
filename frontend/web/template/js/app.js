@@ -11,46 +11,6 @@ $(window).on('load', function () {
             }, 3500)
             break;
 
-        case "landing":
-            var swiper = new Swiper(".swiper-intro", {
-                pagination: {
-                    el: ".pagination-intro",
-                },
-            });
-
-            /* app install toast message */
-            var toastElList = document.getElementById('toastinstall');
-            var toastElinit = new bootstrap.Toast(toastElList, {
-                // autohide: "!1",
-                autohide: true,
-                delay: 5000,
-            });
-            toastElinit.show();
-
-            /* PWA add to phone Install ap button */
-            var btnAdd = document.getElementById('addtohome');
-            var defferedPrompt;
-            window.addEventListener("beforeinstallprompt", function (event) {
-                event.preventDefault();
-                defferedPrompt = event;
-
-                btnAdd.addEventListener("click", function (event) {
-                    defferedPrompt.prompt();
-
-
-                    defferedPrompt.userChoice.then((choiceResult) => {
-                        if (choiceResult.outcome === 'accepted') {
-                            console.log('User accepted the A2HS prompt');
-                        } else {
-                            console.log('User dismissed the A2HS prompt');
-                        }
-                        defferedPrompt = null;
-                    });
-                });
-            });
-
-            break;
-
         case "verify":
 
             document.getElementById('timer').innerHTML = '03' + ':' + '00';
@@ -162,16 +122,6 @@ $(window).on('load', function () {
             $('#toastprouctaddedrichbtn').on('click', function () {
                 $('#toastprouctaddedrich').toast('show');
             })
-
-
-            /* app install toast message */
-            var toastElList = document.getElementById('toastinstall');
-            var toastElinit = new bootstrap.Toast(toastElList, {
-                // autohide: "!1",
-                autohide: true,
-                delay: 5000,
-            });
-            toastElinit.show();
 
             /* PWA add to phone Install ap button */
             var btnAdd = document.getElementById('addtohome');

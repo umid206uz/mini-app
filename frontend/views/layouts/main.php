@@ -1,11 +1,13 @@
 <?php
 
-/** @var \yii\web\View $this */
+/** @var yii\web\View $this */
 /** @var string $content */
 
 use common\models\Cart;
 use frontend\assets\AppAsset;
 use yii\bootstrap5\Html;
+use yii\helpers\Url;
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -17,9 +19,9 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <link rel="apple-touch-icon" href="template/img/favicon180.png" sizes="180x180">
-    <link rel="icon" href="template/img/favicon32.png" sizes="32x32" type="image/png">
-    <link rel="icon" href="template/img/favicon16.png" sizes="16x16" type="image/png">
+    <link rel="apple-touch-icon" href="/template/img/favicon180.png" sizes="180x180">
+    <link rel="icon" href="/template/img/favicon32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/template/img/favicon16.png" sizes="16x16" type="image/png">
 </head>
 <body class="body-scroll" data-page="home">
 <?php $this->beginBody() ?>
@@ -48,7 +50,7 @@ AppAsset::register($this);
         <div class="row mt-4 mb-3">
             <div class="col-auto">
                 <figure class="avatar avatar-60 rounded mx-auto my-1">
-                    <img src="template/img/user2.jpg" alt="">
+                    <img src="/template/img/user2.jpg" alt="">
                 </figure>
             </div>
             <div class="col align-self-center ps-0">
@@ -163,7 +165,7 @@ AppAsset::register($this);
             </div>
             <div class="col text-center">
                 <div class="logo-small">
-                    <img src="template/img/logo.png" alt="" class="img">
+                    <img src="/template/img/logo.png" alt="" class="img">
                     <h6>GO<br><small>MobileUX</small></h6>
                 </div>
             </div>
@@ -202,7 +204,7 @@ AppAsset::register($this);
                 </a>
             </li>
             <li class="nav-item center-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<?= Url::to(['/site/cart'])?>">
                     <span>
                         <i class="nav-icon bi bi-bag"></i>
                         <span class="nav-text"><?=Yii::t("app","Cart")?></span>
@@ -342,29 +344,6 @@ AppAsset::register($this);
     </div>
 </div>
 <!-- event action toast messages ends -->
-
-<!-- PWA app install toast message -->
-<div class="position-fixed bottom-0 start-50 translate-middle-x  z-index-9">
-    <div class="toast mb-3" role="alert" aria-live="assertive" aria-atomic="true" id="toastinstall"
-         data-bs-animation="true">
-        <div class="toast-header">
-            <img src="template/img/favicon32.png" class="rounded me-2" alt="...">
-            <strong class="me-auto">Install PWA App</strong>
-            <small>now</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-            <div class="row">
-                <div class="col">
-                    Click "Install" to install PWA app and experience as indepedent app.
-                </div>
-                <div class="col-auto align-self-center">
-                    <button class="btn-default btn btn-sm" id="addtohome">Install</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <?php $this->endBody() ?>
 </body>

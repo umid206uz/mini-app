@@ -22,6 +22,7 @@ class m250808_060549_create_order_items_table extends Migration
             'total_price' => $this->string()->notNull()->defaultValue(1),
             'created_at' => $this->integer()->notNull()->defaultValue(time()),
         ]);
+
         $this->addForeignKey(
             'fk-order_items-order_id',
             'order_items',
@@ -31,6 +32,14 @@ class m250808_060549_create_order_items_table extends Migration
             'CASCADE',
             'CASCADE'
         );
+
+        $this->addForeignKey(
+            'fk-order_items-product_id',
+            'order_items',
+            'product_id',
+            'product',
+            'id'
+        );
     }
 
     /**
@@ -39,6 +48,7 @@ class m250808_060549_create_order_items_table extends Migration
     public function safeDown()
     {
         $this->dropForeignKey('fk-order_items-order_id', 'order_items');
+        $this->dropForeignKey('fk-order_items-product_id', 'order_items');
         $this->dropTable('{{%order_items}}');
     }
 }

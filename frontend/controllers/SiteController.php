@@ -19,6 +19,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use yii\web\ErrorAction;
 use yii\web\Response;
 
 /**
@@ -37,12 +38,12 @@ class SiteController extends Controller
                 'only' => ['logout', 'signup', 'add'],
                 'rules' => [
                     [
-                        'actions' => ['signup', 'add'],
+                        'actions' => ['signup', 'add', 'cart'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout', 'add'],
+                        'actions' => ['logout', 'add', 'cart'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -64,7 +65,7 @@ class SiteController extends Controller
     {
         return [
             'error' => [
-                'class' => \yii\web\ErrorAction::class,
+                'class' => ErrorAction::class,
             ],
             'captcha' => [
                 'class' => \yii\captcha\CaptchaAction::class,
@@ -93,6 +94,14 @@ class SiteController extends Controller
         $product = Product::findOne($id);
         return $this->renderAjax('product', [
             'product' => $product
+        ]);
+    }
+
+    public function actionCart(): string
+    {
+        $cart = Cart::find()->where(['user_id' => Yii::$app->user->id])->all();
+        return $this->render('cart', [
+            'cart' => $cart
         ]);
     }
 

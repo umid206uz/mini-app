@@ -28,6 +28,38 @@ class m250808_060538_create_orders_table extends Migration
             'updated_at' => $this->integer()->notNull()->defaultValue(time()),
             'approved_at' => $this->integer(),
         ]);
+
+        $this->addForeignKey(
+            'fk-orders-user_id',
+            'orders',
+            'user_id',
+            'user',
+            'id'
+        );
+
+        $this->addForeignKey(
+            'fk-orders-operator_id',
+            'orders',
+            'operator_id',
+            'user',
+            'id'
+        );
+
+        $this->addForeignKey(
+            'fk-orders-region_id',
+            'orders',
+            'region_id',
+            'regions',
+            'id'
+        );
+
+        $this->addForeignKey(
+            'fk-orders-district_id',
+            'orders',
+            'district_id',
+            'regions',
+            'id'
+        );
     }
 
     /**
@@ -35,6 +67,10 @@ class m250808_060538_create_orders_table extends Migration
      */
     public function safeDown()
     {
+        $this->dropForeignKey('fk-orders-user_id', 'orders');
+        $this->dropForeignKey('fk-orders-operator_id', 'orders');
+        $this->dropForeignKey('fk-orders-region_id', 'orders');
+        $this->dropForeignKey('fk-orders-district_id', 'orders');
         $this->dropTable('{{%orders}}');
     }
 }
