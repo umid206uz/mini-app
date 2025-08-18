@@ -16,7 +16,7 @@ class Telegram extends Component
             'text'    => $text,
         ];
         if ($keyboard) {
-            $params['reply_markup'] = json_encode($keyboard);
+            $data['reply_markup'] = json_encode($keyboard);
         }
         $this->sendRequest($url, $data);
     }
