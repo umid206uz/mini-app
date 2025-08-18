@@ -29,15 +29,15 @@ class PhoneHandler
             return;
         }
 
+        $keyboard_menu = [
+            'keyboard' => [
+                [['text' => '📋 Menyu'], ['text' => '🛒 Savatcha']],
+            ],
+            'resize_keyboard' => true
+        ];
+
         $session->setPhone($phone);
         Yii::$app->telegram->sendMessage($chatId, "✅ Sizning telefon raqamingiz:\n" . $phone);
-        Yii::$app->telegram->sendMessage($chatId, "Endi asosiy menyu:", [
-            'reply_markup' => json_encode([
-                'keyboard' => [
-                    [['text' => '📋 Menyu'], ['text' => '🛒 Savatcha']],
-                ],
-                'resize_keyboard' => true,
-            ])
-        ]);
+        Yii::$app->telegram->sendMessage($chatId, "Endi asosiy menyu:", $keyboard_menu);
     }
 }
