@@ -20,7 +20,7 @@ class TelegramRouter
 
         switch ($session->step) {
             case TelegramSession::STEP_START:
-                (new $this->handlers['start'])->handle($chatId, $message, $session);
+                (new $this->handlers['/start'])->handle($chatId, $message, $session);
                 break;
 
             case TelegramSession::STEP_PHONE:
