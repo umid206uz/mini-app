@@ -75,6 +75,7 @@ class TelegramSession extends ActiveRecord
     public function setPhone(string $phone): void
     {
         $this->phone = $phone;
+        $this->step = self::STEP_MENU;
         $this->updated_at = time();
         $this->save(false);
     }

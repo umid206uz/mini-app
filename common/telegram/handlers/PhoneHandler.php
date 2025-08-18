@@ -29,8 +29,7 @@ class PhoneHandler
             return;
         }
 
-        $session = TelegramSession::getSession($chatId);
-        $session->setStep(TelegramSession::STEP_MENU);
+        $session->setPhone($phone);
         Yii::$app->telegram->sendMessage($chatId, "✅ Sizning telefon raqamingiz:\n" . $phone);
         Yii::$app->telegram->sendMessage($chatId, "Endi asosiy menyu:", [
             'reply_markup' => json_encode([
