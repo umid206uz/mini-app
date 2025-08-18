@@ -20,10 +20,14 @@ class TelegramRouter
     {
         $session = (new TelegramSession())->getSession($chatId);
 
+        if ($message === '/start') {
+            $session->reset();
+
+            (new $this->handlers['/start'])->handle($chatId, $message, $session);
+            return;
+        }
+
         switch ($session->step) {
-            case TelegramSession::STEP_START:
-                (new $this->handlers['/start'])->handle($chatId, $message, $session);
-                break;
 
             case TelegramSession::STEP_PHONE:
                 (new $this->handlers['phone'])->handle($chatId, $message, $session);

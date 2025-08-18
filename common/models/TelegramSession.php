@@ -79,6 +79,14 @@ class TelegramSession extends ActiveRecord
         $this->save(false);
     }
 
+    public function reset()
+    {
+        $this->step = self::STEP_START;
+        $this->phone = null;
+        $this->updated_at = time();
+        $this->save();
+    }
+
     /**
      * {@inheritdoc}
      */
