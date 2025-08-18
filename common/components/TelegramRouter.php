@@ -4,6 +4,7 @@ namespace common\components;
 use common\models\TelegramSession;
 use common\telegram\handlers\DefaultHandler;
 use common\telegram\handlers\HelpHandler;
+use common\telegram\handlers\PhoneHandler;
 use common\telegram\handlers\StartHandler;
 use Yii;
 
@@ -12,6 +13,7 @@ class TelegramRouter
     protected $handlers  = [
         '/start' => StartHandler::class,
         'help'   => HelpHandler::class,
+        'phone'   => PhoneHandler::class,
     ];
 
     public function handle($chatId, $message)
