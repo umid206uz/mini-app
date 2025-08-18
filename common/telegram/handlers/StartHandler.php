@@ -1,6 +1,7 @@
 <?php
 namespace common\telegram\handlers;
 
+use common\models\TelegramSession;
 use Yii;
 
 class StartHandler
@@ -21,6 +22,9 @@ class StartHandler
             'resize_keyboard' => true,
             'one_time_keyboard' => true
         ];
+
+        $session = TelegramSession::getSession($chatId);
+        $session->setStep(TelegramSession::STEP_PHONE);
 
         Yii::$app->telegram->sendMessage($chatId, $text, $keyboard);
     }
