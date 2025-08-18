@@ -16,7 +16,7 @@ class TelegramRouter
         'phone'   => PhoneHandler::class,
     ];
 
-    public function handle($chatId, $message)
+    public function handle($chatId, $message, $info)
     {
         $session = (new TelegramSession())->getSession($chatId);
 
@@ -30,11 +30,11 @@ class TelegramRouter
         switch ($session->step) {
 
             case TelegramSession::STEP_PHONE:
-                (new $this->handlers['phone'])->handle($chatId, $message, $session);
+                (new $this->handlers['phone'])->handle($chatId, $info, $session);
                 break;
 
             default:
-                (new DefaultHandler())->handle($chatId, $message);
+                (new DefaultHandler())->handle($chatId, $info);
         }
     }
 }

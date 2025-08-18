@@ -5,10 +5,12 @@ use Yii;
 
 class PhoneHandler
 {
-    public function handle($chatId, $message, $session)
+    public function handle($chatId, $data, $session)
     {
-        if (isset($message['contact']['phone_number'])) {
-            $phone = $message['contact']['phone_number'];
+        if (isset($data['contact']['phone_number'])) {
+            $phone = $data['contact']['phone_number'];
+        } elseif (isset($data['text']) && preg_match('/^\d{9}$/', $data['text'])) {
+            $phone = $data['text'];
         } else {
             $keyboard = [
                 'keyboard' => [

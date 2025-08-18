@@ -18,9 +18,10 @@ class TelegramController extends Controller
         }
 
         $chatId = $data['message']['chat']['id'];
+        $info = $data['message'];
         $text   = trim($data['message']['text']);
 
-        Yii::$app->telegramRouter->handle($chatId, $text);
+        Yii::$app->telegramRouter->handle($chatId, $text, $info);
 
         return 'ok';
     }
