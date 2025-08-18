@@ -6,7 +6,7 @@ use Yii;
 
 class StartHandler
 {
-    public function handle($chatId, $text)
+    public function handle($chatId, $data, $session)
     {
         $text = "Assalomu alaykum!\nBuyurtma berish uchun telefon raqamingizni ulashing yoki 991234567 formatida kiriting:";
 
@@ -23,7 +23,6 @@ class StartHandler
             'one_time_keyboard' => true
         ];
 
-        $session = TelegramSession::getSession($chatId);
         $session->setStep(TelegramSession::STEP_PHONE);
 
         Yii::$app->telegram->sendMessage($chatId, $text, $keyboard);
