@@ -10,7 +10,7 @@ use yii\web\ErrorAction;
  */
 class BotController extends Controller
 {
-    public function beforeAction($action)
+    public function beforeAction($action): bool
     {
         $this->enableCsrfValidation = false;
 
@@ -20,7 +20,7 @@ class BotController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function actions()
+    public function actions(): array
     {
         return [
             'error' => [

@@ -12,5 +12,12 @@ return [
         'cache' => [
             'class' => FileCache::class,
         ],
+        'telegram' => [
+            'class' => 'common\components\Telegram',
+            'botToken' => '921557934:AAGv1S5XPGoFRGWsrkXI1UPyBNswhs3kcH0',
+        ],
+        'telegramRouter' => [
+            'class' => 'common\components\TelegramRouter',
+        ],
     ],
 ];
