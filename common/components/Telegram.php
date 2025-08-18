@@ -8,13 +8,16 @@ class Telegram extends Component
 {
     public $botToken;
 
-    public function sendMessage($chatId, $text)
+    public function sendMessage($chatId, $text, $keyboard = null)
     {
         $url = "https://api.telegram.org/bot{$this->botToken}/sendMessage";
         $data = [
             'chat_id' => $chatId,
             'text'    => $text,
         ];
+        if ($keyboard) {
+            $params['reply_markup'] = json_encode($keyboard);
+        }
         $this->sendRequest($url, $data);
     }
 
