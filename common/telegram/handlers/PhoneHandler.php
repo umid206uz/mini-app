@@ -9,8 +9,6 @@ class PhoneHandler
     {
         if (isset($message['contact']['phone_number'])) {
             $phone = $message['contact']['phone_number'];
-        } elseif (isset($message['text']) && preg_match('/^\d{9}$/', $message['text'])) {
-            $phone = $message['text'];
         } else {
             $keyboard = [
                 'keyboard' => [
