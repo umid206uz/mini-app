@@ -31,8 +31,8 @@ class PhoneHandler
         $session->phone = $phone;
         $session->step = 'menu';
         $session->save(false);
-
-        Yii::$app->telegram->sendMessage($chatId, "✅ Rahmat! Endi asosiy menyu:", [
+        Yii::$app->telegram->sendMessage($chatId, "✅ Sizning telefon raqamingiz:\n" . $phone);
+        Yii::$app->telegram->sendMessage($chatId, "Endi asosiy menyu:", [
             'reply_markup' => json_encode([
                 'keyboard' => [
                     [['text' => '📋 Menyu'], ['text' => '🛒 Savatcha']],
