@@ -53,4 +53,12 @@ class TelegramRouter
                 (new DefaultHandler())->handle($chatId, $info);
         }
     }
+
+    public function handleCallback($chatId, $dataText, $callback)
+    {
+        $session = (new TelegramSession())->getSession($chatId);
+
+        (new $this->handlers['checkout'])->handle($chatId, $dataText, $callback, $session);
+    }
+
 }
