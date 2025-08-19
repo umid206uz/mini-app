@@ -16,6 +16,7 @@ $this->registerJs(<<<JS
 const tg = window.Telegram.WebApp;
 
 document.getElementById("checkoutBtn").addEventListener("click", function() {
+    alert(123);
     fetch("https://shop.sugo.uz/checkout", {
         method: "POST",
         headers: {
