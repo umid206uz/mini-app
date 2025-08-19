@@ -48,7 +48,7 @@ class Sms extends Component
             Yii::error("SMS yuborishda xatolik: " . $response->content, __METHOD__);
         }
 
-        return $response;
+        return $response->data;
     }
 
     /**
