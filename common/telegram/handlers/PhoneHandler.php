@@ -42,8 +42,7 @@ class PhoneHandler
             $session->sendVerificationCode();
             $keyboard_verification = [
                 'keyboard' => [
-                    ['text' => 'Raqamni o\'zgartirish'],
-                    ['text' => 'Kodni qaytadan jo\'natish'],
+                    [['text' => 'Raqamni o\'zgartirish'], ['text' => 'Kodni qaytadan jo\'natish']],
                 ],
                 'resize_keyboard' => true
             ];
