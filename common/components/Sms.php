@@ -59,7 +59,6 @@ class Sms extends Component
      */
     private function refreshToken()
     {
-        dd('asd');
         $client = new Client(['baseUrl' => $this->baseUrl]);
 
         $response = $client->createRequest()
@@ -70,9 +69,9 @@ class Sms extends Component
                 'password' => Yii::$app->params['smsPassword'],
             ])
             ->send();
-
+        dd($response);
         $data = $response->isOk ? $response->data : null;
-        dd($response->data);
+
         if ($data && isset($data['message']) && $data['message'] === 'token_generated') {
             $this->token = $data['data']['token'];
             Yii::$app->params['smsToken'] = $this->token;
