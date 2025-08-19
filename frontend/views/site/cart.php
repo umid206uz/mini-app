@@ -9,6 +9,31 @@ use yii\helpers\Url;
 use yii\bootstrap5\Modal;
 
 $this->title = 'Cart';
+$this->registerJs(<<<JS
+// Telegram WebApp init
+const tg = window.Telegram.WebApp;
+
+// Buyurtma tugmasi
+document.getElementById("checkoutBtn").addEventListener("click", function() {
+    // faqat chat_id yuboramiz
+    fetch("https://your-bot-domain.com/checkout", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            chat_id: tg.initDataUnsafe.user.id
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        tg.close();
+    });
+});
+
+
+JS
+    ,3)
 ?>
 <!-- main page content -->
 <div class="main-container container top-20">
@@ -118,7 +143,7 @@ $this->title = 'Cart';
     <!-- Button -->
     <div class="row mb-3">
         <div class="col align-self-center d-grid">
-            <a href="address.html" class="btn btn-default btn-lg shadow-sm">Next</a>
+            <button id="checkoutBtn" class="btn btn-default btn-lg shadow-sm">Tasdiqlash</button>
         </div>
     </div>
 

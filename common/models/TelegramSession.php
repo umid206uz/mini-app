@@ -33,6 +33,7 @@ class TelegramSession extends ActiveRecord
     const STEP_PHONE = 1;
     const STEP_VERIFICATION = 2;
     const STEP_MENU = 3;
+    const STEP_CHECKOUT = 4;
 
     const STATUS_VERIFIED = 1;
     const STATUS_NOT_VERIFIED = 0;

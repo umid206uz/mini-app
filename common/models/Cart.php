@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -38,6 +39,12 @@ class Cart extends ActiveRecord
             [['user_id', 'product_id', 'quantity', 'price', 'created_at'], 'integer'],
         ];
     }
+
+    public function getProduct(): ActiveQuery
+    {
+        return $this->hasOne(Product::class, ['id' => 'product_id']);
+    }
+
 
     /**
      * {@inheritdoc}

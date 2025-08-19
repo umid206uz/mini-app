@@ -49,6 +49,18 @@ class KeyboardFactory
         ];
     }
 
+    public static function confirmOrderInline(): array
+    {
+        return [
+            'inline_keyboard' => [
+                [
+                    ['text' => "✅ Ha",  'callback_data' => 'order_confirm'],
+                    ['text' => "❌ Yo‘q", 'callback_data' => 'order_cancel'],
+                ]
+            ]
+        ];
+    }
+
     public static function verification(): array
     {
         return [

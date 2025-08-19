@@ -5,6 +5,7 @@ use common\models\TelegramSession;
 use common\telegram\handlers\DefaultHandler;
 use common\telegram\handlers\HelpHandler;
 use common\telegram\handlers\MenuHandler;
+use common\telegram\handlers\OrderCallbackHandler;
 use common\telegram\handlers\PhoneHandler;
 use common\telegram\handlers\StartHandler;
 use common\telegram\handlers\VerificationHandler;
@@ -17,6 +18,7 @@ class TelegramRouter
         'phone'   => PhoneHandler::class,
         'verification'   => VerificationHandler::class,
         'menu'   => MenuHandler::class,
+        'checkout'   => OrderCallbackHandler::class,
     ];
 
     public function handle($chatId, $message, $info)
@@ -41,6 +43,10 @@ class TelegramRouter
 
             case TelegramSession::STEP_MENU:
                 (new $this->handlers['menu'])->handle($chatId, $message, $info, $session);
+                break;
+
+            case TelegramSession::STEP_CHECKOUT:
+                (new $this->handlers['checkout'])->handle($chatId, $message, $info, $session);
                 break;
 
             default:
