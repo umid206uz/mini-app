@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\telegram\text\TextFactory;
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -77,6 +78,12 @@ class TelegramSession extends ActiveRecord
         $this->save();
     }
 
+    public function setVerification(int $verified): void
+    {
+        $this->phone_verified = $verified;
+        $this->save();
+    }
+
     public function setPhone(string $phone): void
     {
         if ($this->phone != $phone){
@@ -110,8 +117,7 @@ class TelegramSession extends ActiveRecord
         $verification_code = rand(100000, 999999);
         $this->verification_token = Yii::$app->security->generatePasswordHash($verification_code);
         $this->save();
-        $text = 'Sugo bot uchun tasdiqlash kodingiz: ' . $verification_code . '. Ushbu kodni hech kimga bermang!';
-        Yii::$app->sms->sendSms($this->phone, $text);
+        Yii::$app->sms->sendSms($this->phone, TextFactory::sendVerificationCodeText($verification_code));
     }
 
     public function validateCode($code): bool

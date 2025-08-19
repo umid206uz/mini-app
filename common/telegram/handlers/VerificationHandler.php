@@ -24,11 +24,13 @@ class VerificationHandler
         }
 
         if (!$session->validateCode($message)){
-            Yii::$app->telegram->sendMessage($chatId, "Kiritilgan kod xato qaytadan urinib ko'ring!", KeyboardFactory::verification());
+            $session->setStep(TelegramSession::STEP_MENU);
+            $session->setVerification(TelegramSession::STATUS_VERIFIED);
+            Yii::$app->telegram->sendMessage($chatId, TextFactory::invalidVerificationCodeText(), KeyboardFactory::verification());
             return;
         }
 
-        Yii::$app->telegram->sendMessage($chatId, "✅ Sizning telefon raqamingiz:\n" . $session->phone);
+        Yii::$app->telegram->sendMessage($chatId, TextFactory::phoneNumberText($session->phone));
         Yii::$app->telegram->sendMessage($chatId, "Endi asosiy menyu:", KeyboardFactory::mainMenu());
     }
 }

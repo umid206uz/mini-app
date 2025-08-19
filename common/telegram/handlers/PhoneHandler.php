@@ -14,7 +14,7 @@ class PhoneHandler
         } elseif (isset($data['text']) && preg_match('/^\d{9}$/', $data['text'])) {
             $phone = $data['text'];
         } else {
-            Yii::$app->telegram->sendMessage($chatId, "❌ Iltimos, to‘g‘ri formatda telefon yuboring", KeyboardFactory::phoneKeyboard());
+            Yii::$app->telegram->sendMessage($chatId, TextFactory::invalidPhoneNumberText(), KeyboardFactory::phoneKeyboard());
             return;
         }
 
@@ -26,7 +26,7 @@ class PhoneHandler
             return;
         }
 
-        Yii::$app->telegram->sendMessage($chatId, "✅ Sizning telefon raqamingiz:\n" . $phone);
+        Yii::$app->telegram->sendMessage($chatId, TextFactory::phoneNumberText($phone));
         Yii::$app->telegram->sendMessage($chatId, "Endi asosiy menyu:", KeyboardFactory::mainMenu());
     }
 }
