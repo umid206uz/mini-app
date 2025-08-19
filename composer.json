@@ -22,7 +22,8 @@
         "kartik-v/yii2-widget-select2": "@dev",
         "kartik-v/yii2-widget-fileinput": "dev-master",
         "ext-json": "*",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "yiisoft/yii2-httpclient": "^2.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

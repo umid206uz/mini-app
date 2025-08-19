@@ -10,9 +10,11 @@ use yii\db\ActiveRecord;
  *
  * @property int $id
  * @property int $chat_id
- * @property int|null $step
+ * @property int $step
  * @property string|null $phone
- * @property string $updated_at
+ * @property int $phone_verified
+ * @property string|null $verification_token
+ * @property int $updated_at
  */
 class TelegramSession extends ActiveRecord
 {
@@ -28,7 +30,11 @@ class TelegramSession extends ActiveRecord
 
     const STEP_START = 0;
     const STEP_PHONE = 1;
-    const STEP_MENU = 2;
+    const STEP_VERIFICATION = 2;
+    const STEP_MENU = 3;
+
+    const STATUS_VERIFIED = 1;
+    const STATUS_NOT_VERIFIED = 0;
 
     /**
      * {@inheritdoc}
@@ -36,13 +42,15 @@ class TelegramSession extends ActiveRecord
     public function rules()
     {
         return [
-            [['phone'], 'default', 'value' => null],
-            [['step'], 'default', 'value' => 0],
+            [['phone', 'verification_token'], 'default', 'value' => null],
+            [['phone_verified'], 'default', 'value' => 0],
+            [['updated_at'], 'default', 'value' => time()],
             [['chat_id'], 'required'],
-            [['chat_id', 'step'], 'integer'],
-            [['updated_at'], 'safe'],
+            [['chat_id', 'step', 'phone_verified', 'updated_at'], 'integer'],
             [['phone'], 'string', 'max' => 50],
+            [['verification_token'], 'string', 'max' => 255],
             [['chat_id'], 'unique'],
+            [['verification_token'], 'unique'],
         ];
     }
 
@@ -58,8 +66,6 @@ class TelegramSession extends ActiveRecord
         if ($session === null) {
             $session = new self();
             $session->chat_id = $chatId;
-            $session->step = self::STEP_START;
-            $session->updated_at = time();
             $session->save();
         }
         return $session;
@@ -68,24 +74,40 @@ class TelegramSession extends ActiveRecord
     public function setStep(int $step): void
     {
         $this->step = $step;
-        $this->updated_at = time();
-        $this->save(false);
+        $this->save();
     }
 
     public function setPhone(string $phone): void
     {
-        $this->phone = $phone;
-        $this->step = self::STEP_MENU;
-        $this->updated_at = time();
-        $this->save(false);
+        if ($this->phone != $phone){
+            $this->phone_verified = self::STATUS_NOT_VERIFIED;
+            $this->verification_token = null;
+            $this->step = self::STEP_VERIFICATION;
+        }else{
+            $this->phone = $phone;
+            $this->step = self::STEP_MENU;
+        }
+
+        $this->save();
     }
 
     public function reset()
     {
         $this->step = self::STEP_START;
         $this->phone = null;
-        $this->updated_at = time();
         $this->save();
+    }
+
+    public function isVerified(): bool
+    {
+        return (bool) $this->phone_verified;
+    }
+
+    public function sendVerificationCode(){
+        $verification_code = rand(100000, 999999);
+        $this->verification_token = Yii::$app->security->generatePasswordHash($verification_code);
+        $text = 'Sugo bot uchun tasdiqlash kodingiz: ' . $verification_code . '. Ushbu kodni hech kimga bermang!';
+        Yii::$app->telegram->sendSms($this->phone, $text);
     }
 
     /**
@@ -98,6 +120,8 @@ class TelegramSession extends ActiveRecord
             'chat_id' => Yii::t('app', 'Chat ID'),
             'step' => Yii::t('app', 'Step'),
             'phone' => Yii::t('app', 'Phone'),
+            'phone_verified' => Yii::t('app', 'Phone Verified'),
+            'verification_token' => Yii::t('app', 'Verification Token'),
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }

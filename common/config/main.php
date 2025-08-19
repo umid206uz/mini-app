@@ -19,5 +19,8 @@ return [
         'telegramRouter' => [
             'class' => 'common\components\TelegramRouter',
         ],
+        'sms' => [
+            'class' => 'common\components\Sms',
+        ],
     ],
 ];

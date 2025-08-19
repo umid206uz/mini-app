@@ -4,7 +4,7 @@ namespace common\telegram\handlers;
 use common\models\TelegramSession;
 use Yii;
 
-class PhoneHandler
+class VerificationHandler
 {
     public function handle($chatId, $data, $session)
     {
@@ -39,16 +39,7 @@ class PhoneHandler
         $session->setPhone($phone);
 
         if (!$session->isVerified()){
-            $session->sendVerificationCode();
-            $keyboard_verification = [
-                'keyboard' => [
-                    ['text' => 'Raqamni o\'zgartirish'],
-                    ['text' => 'Kodni qaytadan jo\'natish'],
-                ],
-                'resize_keyboard' => true
-            ];
-            Yii::$app->telegram->sendMessage($chatId, "Kiritilgan telefon raqamga jo\'natilgan kodni kiriting:", $keyboard_verification);
-            return;
+
         }
 
         Yii::$app->telegram->sendMessage($chatId, "✅ Sizning telefon raqamingiz:\n" . $phone);
