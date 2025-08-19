@@ -96,6 +96,7 @@ class TelegramSession extends ActiveRecord
     {
         $this->step = self::STEP_START;
         $this->phone = null;
+        $this->verification_token = null;
         $this->save();
     }
 
