@@ -1,6 +1,7 @@
 <?php
 namespace common\telegram\handlers;
 
+use common\models\TelegramSession;
 use common\telegram\keyboards\KeyboardFactory;
 use common\telegram\text\TextFactory;
 use Yii;
@@ -11,6 +12,7 @@ class VerificationHandler
     {
         if ($message == 'Raqamni o\'zgartirish'){
             $session->reset();
+            $session->setStep(TelegramSession::STEP_PHONE);
             Yii::$app->telegram->sendMessage($chatId, TextFactory::helloAndAskPhoneText(), KeyboardFactory::phoneKeyboard());
             return;
         }
