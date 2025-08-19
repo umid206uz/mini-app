@@ -50,14 +50,8 @@ class ApiController extends Controller
             return ['ok' => false, 'error' => 'Invalid chat_id'];
         }
 
-        $items = Cart::find()
-            ->alias('c')
-            ->joinWith(['product p'])
-            ->where(['c.user_id' => $chatId])
-            ->all();
-        return [
-          $items
-        ];
+        $items = Cart::find()->where(['user_id' => $chatId])->all();
+
         if (!$items) {
             Yii::$app->telegram->sendMessage($chatId, "Savatchangiz bo‘sh 😕");
             return ['ok' => true, 'empty' => true];
@@ -67,7 +61,7 @@ class ApiController extends Controller
         $total = 0;
         foreach ($items as $row) {
             /** @var Cart $row */
-            $name = $row->product->name ?? 'Mahsulot';
+            $name = $row->product->name_uz ?? 'Mahsulot';
             $qty  = (int)$row->quantity;
             $price = (int)$row->price;
             $sum = $qty * $price;
@@ -77,7 +71,7 @@ class ApiController extends Controller
 
         $text  = "🛒 Sizning buyurtmangiz:\n\n";
         $text .= implode("\n", $lines);
-        $text .= "\n\nJami: <b>{$total} so‘m</b>\n";
+        $text .= "\n\nJami: {$total} so‘m\n";
         $text .= "Tasdiqlaysizmi?";
 
         $replyMarkup = KeyboardFactory::confirmOrderInline();
