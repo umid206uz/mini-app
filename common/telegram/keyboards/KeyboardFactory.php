@@ -33,7 +33,7 @@ class KeyboardFactory
         ];
     }
 
-    public static function openMenuInline(): array
+    public static function openMenuInline($user_id): array
     {
         return [
             'inline_keyboard' => [
@@ -41,7 +41,7 @@ class KeyboardFactory
                     [
                         'text' => "Menyuni ochish",
                         'web_app' => [
-                            'url' => "https://shop.sugo.uz"
+                            'url' => "https://shop.sugo.uz?user_id=" . $user_id
                         ]
                     ]
                 ]
