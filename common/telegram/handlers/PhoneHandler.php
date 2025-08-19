@@ -1,7 +1,8 @@
 <?php
 namespace common\telegram\handlers;
 
-use common\models\TelegramSession;
+use common\telegram\keyboards\KeyboardFactory;
+use common\telegram\keyboards\TextFactory;
 use Yii;
 
 class PhoneHandler
@@ -13,44 +14,19 @@ class PhoneHandler
         } elseif (isset($data['text']) && preg_match('/^\d{9}$/', $data['text'])) {
             $phone = $data['text'];
         } else {
-            $keyboard = [
-                'keyboard' => [
-                    [
-                        [
-                            'text' => '📱 Telefon raqamni yuborish',
-                            'request_contact' => true
-                        ]
-                    ]
-                ],
-                'resize_keyboard' => true,
-                'one_time_keyboard' => true
-            ];
-            Yii::$app->telegram->sendMessage($chatId, "❌ Iltimos, to‘g‘ri formatda telefon yuboring", $keyboard);
+            Yii::$app->telegram->sendMessage($chatId, "❌ Iltimos, to‘g‘ri formatda telefon yuboring", KeyboardFactory::phoneKeyboard());
             return;
         }
-
-        $keyboard_menu = [
-            'keyboard' => [
-                [['text' => '📋 Menyu'], ['text' => '🛒 Savatcha']],
-            ],
-            'resize_keyboard' => true
-        ];
 
         $session->setPhone($phone);
 
         if (!$session->isVerified()){
             $session->sendVerificationCode();
-            $keyboard_verification = [
-                'keyboard' => [
-                    [['text' => 'Raqamni o\'zgartirish'], ['text' => 'Kodni qaytadan jo\'natish']],
-                ],
-                'resize_keyboard' => true
-            ];
-            Yii::$app->telegram->sendMessage($chatId, "Kiritilgan telefon raqamga jo\'natilgan kodni kiriting:", $keyboard_verification);
+            Yii::$app->telegram->sendMessage($chatId, TextFactory::askCodeText(), KeyboardFactory::verification());
             return;
         }
 
         Yii::$app->telegram->sendMessage($chatId, "✅ Sizning telefon raqamingiz:\n" . $phone);
-        Yii::$app->telegram->sendMessage($chatId, "Endi asosiy menyu:", $keyboard_menu);
+        Yii::$app->telegram->sendMessage($chatId, "Endi asosiy menyu:", KeyboardFactory::mainMenu());
     }
 }
