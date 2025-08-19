@@ -10,31 +10,32 @@ use yii\helpers\Url;
 use yii\bootstrap5\Modal;
 
 $this->title = 'Cart';
-$user_id = Yii::$app->session->get('user_id');
-/** @var int|string $user_id */
-$this->registerJs(<<<JS
-const tg = window.Telegram.WebApp;
 
-$("#checkoutBtn").on("click", function() {
-    $.ajax({
-        url: "https://shop.sugo.uz/checkout",
-        type: "POST",
-        contentType: "application/json",
-        data: JSON.stringify({
-            chat_id: "$user_id"
-        }),
-        success: function(res) {
-            alert("Tasdiq yopildi");
-            tg.close();
-        },
-        error: function(err) {
-            console.log(err);
-            alert("Xatolik yuz berdi");
-        }
+$this->registerJsVar('chatId', Yii::$app->session->get('user_id'));
+
+$this->registerJs(<<<JS
+    const tg = window.Telegram.WebApp;
+
+    $("#checkoutBtn").on("click", function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: "https://shop.sugo.uz/checkout",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                chat_id: chatId
+            }),
+            success: function(res) {
+                alert("Tasdiq yuborildi!");
+                tg.close();
+            },
+            error: function(xhr) {
+                alert("Xatolik: " + xhr.status);
+            }
+        });
     });
-});
-JS
-    ,3);
+JS);
 ?>
 <!-- main page content -->
 <div class="main-container container top-20">
