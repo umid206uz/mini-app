@@ -8,17 +8,17 @@ use common\models\OrderItems;
 
 class OrderCallbackHandler
 {
-    public function handle($chatId, $message, $info, $session)
+    public function handle($chatId, $dataText, $callback, $session)
     {
         Yii::$app->telegram->sendMessage($chatId, "asdasd");
-        if (!$chatId || !$info) return;
+        if (!$chatId || !$dataText) return;
         Yii::$app->telegram->sendMessage($chatId, "qweqwe");
-        if ($info == 'order_cancel') {
+        if ($dataText == 'order_cancel') {
             Yii::$app->telegram->sendMessage($chatId, "❌ Buyurtma bekor qilindi.");
             return;
         }
 
-        if ($info === 'order_confirm') {
+        if ($dataText == 'order_confirm') {
             $db = Yii::$app->db;
             $tx = $db->beginTransaction();
             try {
