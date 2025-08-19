@@ -19,10 +19,9 @@ class TelegramController extends Controller
 
         if (isset($data['callback_query'])) {
             $callback = $data['callback_query'];
-            $chatId   = $callback['message']['chat']['id'];
-            $dataText = $callback['data'];
-            Yii::$app->telegram->sendMessage($chatId, json_encode($data));
-            Yii::$app->telegramRouter->handleCallback($chatId, $dataText, $callback);
+            $chatId   = $callback['from']['id'];
+            $text_button = $callback['data'];
+            Yii::$app->telegramRouter->handleCallback($chatId, $text_button, $callback);
         }else{
             $chatId = $data['message']['chat']['id'];
             $info = $data['message'];

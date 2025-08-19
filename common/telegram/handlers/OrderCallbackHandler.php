@@ -1,6 +1,8 @@
 <?php
 namespace common\telegram\handlers;
 
+use common\models\TelegramSession;
+use common\telegram\keyboards\KeyboardFactory;
 use Yii;
 use common\models\Cart;
 use common\models\Orders;
@@ -8,16 +10,18 @@ use common\models\OrderItems;
 
 class OrderCallbackHandler
 {
-    public function handle($chatId, $dataText, $callback, $session)
+    public function handle($chatId, $text_button, $callback, $session)
     {
-        if (!$chatId || !$dataText) return;
+        if (!$chatId || !$text_button) return;
 
-        if ($dataText == 'order_cancel') {
+        if ($text_button == 'order_cancel') {
             Yii::$app->telegram->sendMessage($chatId, "❌ Buyurtma bekor qilindi.");
+            $session->setStep(TelegramSession::STEP_MENU);
+            Yii::$app->telegram->sendMessage($chatId, "Endi asosiy menyu:", KeyboardFactory::mainMenu());
             return;
         }
 
-        if ($dataText == 'order_confirm') {
+        if ($text_button == 'order_confirm') {
             $db = Yii::$app->db;
             $tx = $db->beginTransaction();
             try {
@@ -50,7 +54,6 @@ class OrderCallbackHandler
                     $item->save(false);
 
                     $total += $sum;
-                    // cartni yopamiz
                     $c->status = 1;
                     $c->save(false);
                 }
