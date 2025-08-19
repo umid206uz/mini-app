@@ -81,6 +81,7 @@ class TelegramSession extends ActiveRecord
     {
         if ($this->phone != $phone){
             $this->phone_verified = self::STATUS_NOT_VERIFIED;
+            $this->phone = $phone;
             $this->verification_token = null;
             $this->step = self::STEP_VERIFICATION;
         }else{
@@ -106,6 +107,7 @@ class TelegramSession extends ActiveRecord
     public function sendVerificationCode(){
         $verification_code = rand(100000, 999999);
         $this->verification_token = Yii::$app->security->generatePasswordHash($verification_code);
+        $this->save();
         $text = 'Sugo bot uchun tasdiqlash kodingiz: ' . $verification_code . '. Ushbu kodni hech kimga bermang!';
         Yii::$app->telegram->sendSms($this->phone, $text);
     }
