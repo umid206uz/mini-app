@@ -38,6 +38,22 @@ class KeyboardFactory
         ];
     }
 
+    public static function openMenuInline(): array
+    {
+        return [
+            'inline_keyboard' => [
+                [
+                    [
+                        'text' => "Menyuni ochish",
+                        'web_app' => [
+                            'url' => "https://shop.sugo.uz"
+                        ]
+                    ]
+                ]
+            ]
+        ];
+    }
+
     public static function verification(): array
     {
         return [

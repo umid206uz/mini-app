@@ -33,4 +33,14 @@ class TextFactory
     {
         return 'Sugo bot uchun tasdiqlash kodingiz: ' . $verification_code . '. Ushbu kodni hech kimga bermang!';
     }
+
+    public static function openMenuText(): string
+    {
+        return 'Menyuni oching va savatchani to\'ldiring';
+    }
+
+    public static function emptyCartText(): string
+    {
+        return 'Sizning savatchangiz hozircha bo\'sh ';
+    }
 }
