@@ -2,6 +2,7 @@
 
 /** @var yii\web\View $this */
 /** @var string $content */
+/** @var integer $user_id */
 
 use common\models\Cart;
 use frontend\assets\AppAsset;
@@ -204,11 +205,11 @@ AppAsset::register($this);
                 </a>
             </li>
             <li class="nav-item center-item">
-                <a class="nav-link" href="<?= Url::to(['/site/cart'])?>">
+                <a class="nav-link" href="<?= Url::to(['/site/cart', 'user_id' => $user_id])?>">
                     <span>
                         <i class="nav-icon bi bi-bag"></i>
                         <span class="nav-text"><?=Yii::t("app","Cart")?></span>
-                        <span class="countercart"><?= Cart::find()->where(['user_id' => Yii::$app->user->id])->count()?></span>
+                        <span class="countercart"><?= Cart::find()->where(['user_id' => $user_id])->count()?></span>
                     </span>
                 </a>
             </li>
