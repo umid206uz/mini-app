@@ -21,7 +21,7 @@ class Sms extends Component
      * SMS yuborish
      * @throws \yii\base\InvalidConfigException
      */
-    public function sendSms(string $phone, string $text): ?array
+    public function sendSms(string $phone, string $text)
     {
         $this->refreshToken();
         $client = new Client(['baseUrl' => $this->baseUrl]);
@@ -57,8 +57,9 @@ class Sms extends Component
      * Tokenni yangilash
      * @throws \yii\base\InvalidConfigException
      */
-    private function refreshToken(): ?string
+    private function refreshToken()
     {
+        dd('asd');
         $client = new Client(['baseUrl' => $this->baseUrl]);
 
         $response = $client->createRequest()
