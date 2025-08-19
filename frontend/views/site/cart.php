@@ -11,30 +11,47 @@ use yii\bootstrap5\Modal;
 
 $this->title = 'Cart';
 $user_id = Yii::$app->session->get('user_id');
+/** @var int|string $user_id */
+$userIdJs = json_encode((int)$user_id);
+
 $this->registerJs(<<<JS
+(function($){
+  // Telegram WebApp obyektini xavfsiz olish
+  var tg = (window.Telegram && Telegram.WebApp) ? Telegram.WebApp : null;
+  var chatId = $userIdJs;
 
-const tg = window.Telegram.WebApp;
+  // Delegated handler: element keyinchalik DOMga qo'shilsa ham ishlaydi
+  $(document).on('click', '#checkoutBtn', function(e){
+    e.preventDefault();
+    var \$btn = $(this);
+    \$btn.prop('disabled', true);
 
-document.getElementById("checkoutBtn").addEventListener("click", function() {
-    alert(123);
-    fetch("https://shop.sugo.uz/checkout", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            chat_id: $user_id
-        })
+    $.ajax({
+      url: 'https://shop.sugo.uz/checkout',
+      method: 'POST',
+      data: JSON.stringify({ chat_id: chatId }),
+      contentType: 'application/json; charset=UTF-8',
+      dataType: 'json',
+      timeout: 15000,
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
     })
-    .then(res => res.json())
-    .then(data => {
-        tg.close();
+    .done(function(resp){
+      if (resp && (resp.success === true || resp.ok === true)) {
+        if (tg) { tg.close(); }
+        else { alert('Tasdiq yuborildi'); }
+      } else {
+        alert((resp && resp.message) ? resp.message : 'Xatolik yuz berdi');
+      }
+    })
+    .fail(function(jqXHR, textStatus){
+      alert('Server bilan aloqa xatosi: ' + textStatus);
+    })
+    .always(function(){
+      \$btn.prop('disabled', false);
     });
-});
-
-
-JS
-    ,3)
+  });
+})(jQuery);
+JS, \yii\web\View::POS_END);
 ?>
 <!-- main page content -->
 <div class="main-container container top-20">
