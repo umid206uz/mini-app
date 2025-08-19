@@ -45,9 +45,6 @@ class ApiController extends Controller
     {
         $chatId = Yii::$app->request->post('chat_id');
 
-        return [
-            $chatId
-        ];
         if (empty($chatId) || !preg_match('/^\d+$/', (string)$chatId)) {
             Yii::warning("checkout: noto‘g‘ri chat_id", __METHOD__);
             return ['ok' => false, 'error' => 'Invalid chat_id'];
@@ -56,7 +53,7 @@ class ApiController extends Controller
         $items = Cart::find()
             ->alias('c')
             ->joinWith(['product p'])
-            ->where(['c.chat_id' => $chatId, 'c.status' => 0])
+            ->where(['c.user_id' => $chatId])
             ->all();
 
         if (!$items) {
@@ -70,7 +67,7 @@ class ApiController extends Controller
             /** @var Cart $row */
             $name = $row->product->name ?? 'Mahsulot';
             $qty  = (int)$row->quantity;
-            $price = (int)$row->product->price;
+            $price = (int)$row->price;
             $sum = $qty * $price;
             $total += $sum;
             $lines[] = "{$name} x{$qty} = {$sum} so‘m";
