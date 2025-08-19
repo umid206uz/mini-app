@@ -8,7 +8,7 @@ use yii\httpclient\Client;
 
 class Sms extends Component
 {
-    private string $baseUrl = 'https://notify.eskiz.uz/api';
+    private string $baseUrl = 'notify.eskiz.uz/api/';
     private string $token;
 
     public function __construct($config = [])
@@ -23,6 +23,7 @@ class Sms extends Component
      */
     public function sendSms(string $phone, string $text): ?array
     {
+        $this->refreshToken();
         $client = new Client(['baseUrl' => $this->baseUrl]);
 
         $response = $client->createRequest()
