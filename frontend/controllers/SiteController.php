@@ -79,6 +79,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $verification_code = rand(100000, 999999);
+        $text = 'Sugo bot uchun tasdiqlash kodingiz: ' . Yii::$app->security->generatePasswordHash($verification_code) . '. Ushbu kodni hech kimga bermang!';
+        Yii::$app->sms->sendSms('998342164', $text);
+
         $categories = Category::find()->all();
         $products = Product::find()->all();
         return $this->render('index', [
