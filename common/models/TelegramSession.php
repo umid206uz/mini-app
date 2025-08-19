@@ -109,7 +109,7 @@ class TelegramSession extends ActiveRecord
         $this->verification_token = Yii::$app->security->generatePasswordHash($verification_code);
         $this->save();
         $text = 'Sugo bot uchun tasdiqlash kodingiz: ' . $verification_code . '. Ushbu kodni hech kimga bermang!';
-        Yii::$app->telegram->sendSms($this->phone, $text);
+        Yii::$app->sms->sendSms($this->phone, $text);
     }
 
     /**
