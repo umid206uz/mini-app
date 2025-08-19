@@ -40,6 +40,7 @@ class Sms extends Component
         $data = $response->isOk ? $response->data : null;
 
         if ($data && isset($data['message']) && ($data['message'] === 'Expired' || $data['message'] === 'Invalid Authorization header format')) {
+            dd('asd');
             $this->refreshToken();
             return $this->sendSms($phone, $text);
         }
