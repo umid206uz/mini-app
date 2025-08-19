@@ -55,7 +55,7 @@ class ApiController extends Controller
             ->joinWith(['product p'])
             ->where(['c.user_id' => $chatId])
             ->all();
-
+        dd($items);
         if (!$items) {
             Yii::$app->telegram->sendMessage($chatId, "Savatchangiz bo‘sh 😕");
             return ['ok' => true, 'empty' => true];
