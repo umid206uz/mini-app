@@ -21,6 +21,7 @@ class TelegramController extends Controller
             $callback = $data['callback_query'];
             $chatId   = $callback['message']['chat']['id'];
             $dataText = $callback['data'];
+            Yii::$app->telegram->sendMessage($chatId, $dataText);
             Yii::$app->telegramRouter->handleCallback($chatId, $dataText, $callback);
         }
 
