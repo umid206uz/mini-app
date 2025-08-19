@@ -3,26 +3,26 @@
 /** @var yii\web\View $this */
 /** @var common\models\Cart $cart */
 /** @var common\models\Cart $cart_item */
+/** @var integer $cart_item */
 
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap5\Modal;
 
 $this->title = 'Cart';
+$user_id = Yii::$app->session->get('user_id');
 $this->registerJs(<<<JS
-// Telegram WebApp init
+
 const tg = window.Telegram.WebApp;
 
-// Buyurtma tugmasi
 document.getElementById("checkoutBtn").addEventListener("click", function() {
-    // faqat chat_id yuboramiz
-    fetch("https://your-bot-domain.com/checkout", {
+    fetch("https://shop.sugo.uz/checkout", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            chat_id: tg.initDataUnsafe.user.id
+            chat_id: $user_id
         })
     })
     .then(res => res.json())

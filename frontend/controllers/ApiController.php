@@ -66,7 +66,7 @@ class ApiController extends Controller
             $price = (int)$row->price;
             $sum = $qty * $price;
             $total += $sum;
-            $lines[] = "{$name} x{$qty} = {$sum} so‘m";
+            $lines[] = "{$name} x {$qty} = {$sum} so‘m";
         }
 
         $text  = "🛒 Sizning buyurtmangiz:\n\n";
