@@ -10,9 +10,8 @@ class OrderCallbackHandler
 {
     public function handle($chatId, $dataText, $callback, $session)
     {
-        Yii::$app->telegram->sendMessage($chatId, "asdasd");
         if (!$chatId || !$dataText) return;
-        Yii::$app->telegram->sendMessage($chatId, "qweqwe");
+
         if ($dataText == 'order_cancel') {
             Yii::$app->telegram->sendMessage($chatId, "❌ Buyurtma bekor qilindi.");
             return;
