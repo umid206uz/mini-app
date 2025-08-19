@@ -8,7 +8,7 @@ use yii\httpclient\Client;
 
 class Sms extends Component
 {
-    private string $baseUrl = 'notify.eskiz.uz/api';
+    private string $baseUrl = 'https://notify.eskiz.uz/api';
     private string $token;
 
     public function __construct($config = [])
@@ -21,9 +21,8 @@ class Sms extends Component
      * SMS yuborish
      * @throws \yii\base\InvalidConfigException
      */
-    public function sendSms(string $phone, string $text)
+    public function sendSms(string $phone, string $text): ?array
     {
-        $this->refreshToken();
         $client = new Client(['baseUrl' => $this->baseUrl]);
 
         $response = $client->createRequest()
@@ -40,8 +39,7 @@ class Sms extends Component
 
         $data = $response->isOk ? $response->data : null;
 
-        if ($data && isset($data['message']) && ($data['message'] === 'Expired' || $data['message'] === 'Invalid Authorization header format')) {
-
+        if ($data && isset($data['message']) && ($data['message'] === 'Expired')) {
             $this->refreshToken();
             return $this->sendSms($phone, $text);
         }
@@ -50,14 +48,14 @@ class Sms extends Component
             Yii::error("SMS yuborishda xatolik: " . $response->content, __METHOD__);
         }
 
-        return $response->data;
+        return $data;
     }
 
     /**
      * Tokenni yangilash
      * @throws \yii\base\InvalidConfigException
      */
-    private function refreshToken()
+    private function refreshToken(): ?string
     {
         $client = new Client(['baseUrl' => $this->baseUrl]);
 
