@@ -7,7 +7,6 @@ use common\telegram\handlers\HelpHandler;
 use common\telegram\handlers\PhoneHandler;
 use common\telegram\handlers\StartHandler;
 use common\telegram\handlers\VerificationHandler;
-use Yii;
 
 class TelegramRouter
 {
@@ -24,8 +23,7 @@ class TelegramRouter
 
         if ($message === '/start') {
             $session->reset();
-
-            (new $this->handlers['/start'])->handle($chatId, $message, $session);
+            (new $this->handlers['/start'])->handle($chatId, $session);
             return;
         }
 
@@ -36,7 +34,7 @@ class TelegramRouter
                 break;
 
             case TelegramSession::STEP_VERIFICATION:
-                (new $this->handlers['verification'])->handle($chatId, $info, $message, $session);
+                (new $this->handlers['verification'])->handle($chatId, $message, $session);
                 break;
 
             default:

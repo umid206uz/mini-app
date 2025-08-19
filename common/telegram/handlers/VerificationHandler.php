@@ -8,7 +8,7 @@ use Yii;
 
 class VerificationHandler
 {
-    public function handle($chatId, $data, $message, $session)
+    public function handle($chatId, $message, $session)
     {
         if ($message == 'Raqamni o\'zgartirish'){
             $session->resetPhone();

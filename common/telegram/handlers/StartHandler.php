@@ -8,7 +8,7 @@ use Yii;
 
 class StartHandler
 {
-    public function handle($chatId, $data, $session)
+    public function handle($chatId, $session)
     {
         $session->setStep(TelegramSession::STEP_PHONE);
 
