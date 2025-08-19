@@ -17,12 +17,6 @@ class TelegramController extends Controller
             return 'ok';
         }
 
-        $chatId = $data['message']['chat']['id'];
-        $info = $data['message'];
-        $text   = trim($data['message']['text']);
-
-        Yii::$app->telegramRouter->handle($chatId, $text, $info);
-
         if (isset($data['callback_query'])) {
             Yii::$app->telegram->sendMessage(612652165, 'asdasd');
             $callback = $data['callback_query'];
@@ -31,6 +25,14 @@ class TelegramController extends Controller
             Yii::$app->telegram->sendMessage($chatId, 'qwe');
             Yii::$app->telegramRouter->handleCallback($chatId, $dataText, $callback);
         }
+
+        $chatId = $data['message']['chat']['id'];
+        $info = $data['message'];
+        $text   = trim($data['message']['text']);
+
+        Yii::$app->telegramRouter->handle($chatId, $text, $info);
+
+
 
         return 'ok';
     }
