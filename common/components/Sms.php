@@ -23,7 +23,6 @@ class Sms extends Component
      */
     public function sendSms(string $phone, string $text): ?array
     {
-        $this->refreshToken();
         $client = new Client(['baseUrl' => $this->baseUrl]);
 
         $response = $client->createRequest()
@@ -70,7 +69,7 @@ class Sms extends Component
             ->send();
 
         $data = $response->isOk ? $response->data : null;
-
+        dd($response->data);
         if ($data && isset($data['message']) && $data['message'] === 'token_generated') {
             $this->token = $data['data']['token'];
             Yii::$app->params['smsToken'] = $this->token;
