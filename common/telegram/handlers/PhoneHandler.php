@@ -11,6 +11,9 @@ class PhoneHandler
     {
         if (isset($data['contact']['phone_number'])) {
             $phone = $data['contact']['phone_number'];
+            if (strpos($phone, '998') === 0) {
+                $phone = substr($phone, 3);
+            }
         } elseif (isset($data['text']) && preg_match('/^\d{9}$/', $data['text'])) {
             $phone = $data['text'];
         } else {
