@@ -13,7 +13,7 @@ class OrderCallbackHandler
 
         if (!$chatId || !$info) return;
 
-        if ($info === 'order_cancel') {
+        if ($info == 'order_cancel') {
             Yii::$app->telegram->sendMessage($chatId, "❌ Buyurtma bekor qilindi.");
             return;
         }
