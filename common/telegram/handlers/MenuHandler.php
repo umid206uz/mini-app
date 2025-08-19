@@ -10,7 +10,7 @@ class MenuHandler
 {
     public function handle($chatId, $message, $info, $session)
     {
-        if ($message == '📋 Menyu'){
+        if ($message == '📋 Buyurtma berish'){
             Yii::$app->telegram->sendMessage($chatId, TextFactory::openMenuText(), KeyboardFactory::openMenuInline());
         }
 

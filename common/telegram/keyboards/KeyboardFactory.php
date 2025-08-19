@@ -25,12 +25,7 @@ class KeyboardFactory
         return [
             'keyboard' => [
                 [
-                    [
-                        'text' => '📋 Menyu',
-                        'web_app' => [
-                            'url' => 'https://shop.sugo.uz'
-                        ]
-                    ],
+                    ['text' => '📋 Buyurtma berish'],
                     ['text' => '🛒 Savatcha']
                 ],
             ],
