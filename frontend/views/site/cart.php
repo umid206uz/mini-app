@@ -17,6 +17,7 @@ $this->registerJs(<<<JS
     const tg = window.Telegram.WebApp;
 
     $("#checkoutBtn").on("click", function(e) {
+        alert(chatId);
         e.preventDefault();
 
         $.ajax({
