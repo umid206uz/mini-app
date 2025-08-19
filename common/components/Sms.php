@@ -23,6 +23,7 @@ class Sms extends Component
      */
     public function sendSms(string $phone, string $text): ?array
     {
+        $this->refreshToken();
         $client = new Client(['baseUrl' => $this->baseUrl]);
 
         $response = $client->createRequest()
@@ -40,7 +41,7 @@ class Sms extends Component
         $data = $response->isOk ? $response->data : null;
 
         if ($data && isset($data['message']) && ($data['message'] === 'Expired' || $data['message'] === 'Invalid Authorization header format')) {
-            dd('asd');
+
             $this->refreshToken();
             return $this->sendSms($phone, $text);
         }
