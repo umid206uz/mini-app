@@ -13,6 +13,7 @@ class VerificationHandler
         if ($message == 'Raqamni o\'zgartirish'){
             $session->reset();
             $session->setStep(TelegramSession::STEP_PHONE);
+            $session->setVerification(TelegramSession::STATUS_NOT_VERIFIED);
             Yii::$app->telegram->sendMessage($chatId, TextFactory::helloAndAskPhoneText(), KeyboardFactory::phoneKeyboard());
             return;
         }
