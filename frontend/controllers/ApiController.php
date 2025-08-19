@@ -45,6 +45,9 @@ class ApiController extends Controller
     {
         $chatId = Yii::$app->request->post('chat_id');
 
+        return [
+            $chatId
+        ];
         if (empty($chatId) || !preg_match('/^\d+$/', (string)$chatId)) {
             Yii::warning("checkout: noto‘g‘ri chat_id", __METHOD__);
             return ['ok' => false, 'error' => 'Invalid chat_id'];
