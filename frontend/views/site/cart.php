@@ -16,15 +16,16 @@ $this->registerJsVar('chatId', Yii::$app->session->get('user_id'));
 $this->registerJs(<<<JS
     $("#checkoutBtn").on("click", function() {
         alert(chatId);
+        
         const tg = window.Telegram.WebApp;
-
+tg.close();
         $.ajax({
             url: "https://shop.sugo.uz/checkout",
             type: "POST",
             contentType: "application/json",
-            data: JSON.stringify({
+            data: {
                 chat_id: chatId
-            }),
+            },
             success: function(res) {
                 alert("Tasdiq yuborildi!");
                 tg.close();
