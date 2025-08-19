@@ -12,7 +12,7 @@ class TelegramController extends Controller
     public function actionWebhook(): string
     {
         $data = json_decode(Yii::$app->request->getRawBody(), true);
-
+        Yii::$app->telegram->sendMessage(612652165, 'asdasd');
         if (!$data) {
             return 'ok';
         }
