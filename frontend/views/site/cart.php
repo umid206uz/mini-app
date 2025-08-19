@@ -12,46 +12,29 @@ use yii\bootstrap5\Modal;
 $this->title = 'Cart';
 $user_id = Yii::$app->session->get('user_id');
 /** @var int|string $user_id */
-$userIdJs = json_encode((int)$user_id);
-
 $this->registerJs(<<<JS
-(function($){
-  // Telegram WebApp obyektini xavfsiz olish
-  var tg = (window.Telegram && Telegram.WebApp) ? Telegram.WebApp : null;
-  var chatId = $userIdJs;
+const tg = window.Telegram.WebApp;
 
-  // Delegated handler: element keyinchalik DOMga qo'shilsa ham ishlaydi
-  $(document).on('click', '#checkoutBtn', function(e){
-    e.preventDefault();
-    var \$btn = $(this);
-    \$btn.prop('disabled', true);
-
+$("#checkoutBtn").on("click", function() {
     $.ajax({
-      url: 'https://shop.sugo.uz/checkout',
-      method: 'POST',
-      data: JSON.stringify({ chat_id: chatId }),
-      contentType: 'application/json; charset=UTF-8',
-      dataType: 'json',
-      timeout: 15000,
-      headers: { 'X-Requested-With': 'XMLHttpRequest' }
-    })
-    .done(function(resp){
-      if (resp && (resp.success === true || resp.ok === true)) {
-        if (tg) { tg.close(); }
-        else { alert('Tasdiq yuborildi'); }
-      } else {
-        alert((resp && resp.message) ? resp.message : 'Xatolik yuz berdi');
-      }
-    })
-    .fail(function(jqXHR, textStatus){
-      alert('Server bilan aloqa xatosi: ' + textStatus);
-    })
-    .always(function(){
-      \$btn.prop('disabled', false);
+        url: "https://shop.sugo.uz/checkout",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+            chat_id: "$user_id"
+        }),
+        success: function(res) {
+            alert("Tasdiq yopildi");
+            tg.close();
+        },
+        error: function(err) {
+            console.log(err);
+            alert("Xatolik yuz berdi");
+        }
     });
-  });
-})(jQuery);
-JS, \yii\web\View::POS_END);
+});
+JS
+    ,3);
 ?>
 <!-- main page content -->
 <div class="main-container container top-20">
