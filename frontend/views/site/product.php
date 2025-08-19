@@ -1,5 +1,6 @@
 <?php
 /** @var common\models\Product $product */
+/** @var integer $user_id */
 
 $this->registerJs(<<<JS
 $('#add-to-cart').on('click', function () {
@@ -10,7 +11,8 @@ $('#add-to-cart').on('click', function () {
         type: 'GET',
         data: {
             product_id: productId,
-            quantity: quantity
+            quantity: quantity,
+            user_id: $user_id
         },
         success: function (response) {
             if (response.success) {

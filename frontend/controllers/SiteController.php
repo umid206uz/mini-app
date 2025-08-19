@@ -75,29 +75,32 @@ class SiteController extends Controller
     /**
      * Displays homepage.
      *
+     * @param $user_id
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($user_id)
     {
         $categories = Category::find()->all();
         $products = Product::find()->all();
         return $this->render('index', [
             'categories' => $categories,
             'products' => $products,
+            'user_id' => $user_id,
         ]);
     }
 
-    public function actionProduct($id): string
+    public function actionProduct($id, $user_id): string
     {
         $product = Product::findOne($id);
         return $this->renderAjax('product', [
-            'product' => $product
+            'product' => $product,
+            'user_id' => $user_id,
         ]);
     }
 
-    public function actionCart(): string
+    public function actionCart($user_id): string
     {
-        $cart = Cart::find()->where(['user_id' => Yii::$app->user->id])->all();
+        $cart = Cart::find()->where(['user_id' => $user_id])->all();
         return $this->render('cart', [
             'cart' => $cart
         ]);
@@ -108,6 +111,7 @@ class SiteController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $product_id = Yii::$app->request->get('product_id');
+        $user_id = Yii::$app->request->get('user_id');
         $quantity = (int) Yii::$app->request->get('quantity',1);
 
         if (!$product_id || $quantity < 1) {
@@ -119,7 +123,6 @@ class SiteController extends Controller
             return ['success' => false, 'error' => 'Mahsulot topilmadi.'];
         }
 
-        $user_id = Yii::$app->user->id ?? null;
         if (!$user_id) {
             return ['success' => false, 'error' => 'Foydalanuvchi aniqlanmadi.'];
         }
