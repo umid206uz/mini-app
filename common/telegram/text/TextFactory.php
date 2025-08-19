@@ -1,6 +1,6 @@
 <?php
 
-namespace common\telegram\keyboards;
+namespace common\telegram\text;
 
 class TextFactory
 {

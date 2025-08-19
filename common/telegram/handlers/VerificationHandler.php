@@ -1,9 +1,8 @@
 <?php
 namespace common\telegram\handlers;
 
-use common\models\TelegramSession;
 use common\telegram\keyboards\KeyboardFactory;
-use common\telegram\keyboards\TextFactory;
+use common\telegram\text\TextFactory;
 use Yii;
 
 class VerificationHandler
