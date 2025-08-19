@@ -102,8 +102,15 @@ class TelegramSession extends ActiveRecord
     public function reset()
     {
         $this->step = self::STEP_START;
-        $this->phone = null;
         $this->verification_token = null;
+        $this->save();
+    }
+
+    public function resetPhone()
+    {
+        $this->step = self::STEP_PHONE;
+        $this->phone = null;
+        $this->phone_verified = self::STATUS_NOT_VERIFIED;
         $this->save();
     }
 
