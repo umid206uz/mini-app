@@ -8,7 +8,7 @@ use yii\httpclient\Client;
 
 class Sms extends Component
 {
-    private string $baseUrl = 'notify.eskiz.uz/api/';
+    private string $baseUrl = 'notify.eskiz.uz/api';
     private string $token;
 
     public function __construct($config = [])
@@ -60,7 +60,7 @@ class Sms extends Component
     private function refreshToken()
     {
         $client = new Client(['baseUrl' => $this->baseUrl]);
-        dd(Yii::$app->params['smsEmail']);
+
         $response = $client->createRequest()
             ->setMethod('POST')
             ->setUrl('auth/login')
