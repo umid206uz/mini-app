@@ -69,7 +69,7 @@ class Sms extends Component
                 'password' => Yii::$app->params['smsPassword'],
             ])
             ->send();
-        dd($response);
+        dd(Yii::$app->params['smsEmail']);
         $data = $response->isOk ? $response->data : null;
 
         if ($data && isset($data['message']) && $data['message'] === 'token_generated') {
