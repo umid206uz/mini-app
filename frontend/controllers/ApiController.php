@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\TelegramSession;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
@@ -74,10 +75,9 @@ class ApiController extends Controller
         $text .= "\n\nJami: {$total} so‘m\n";
         $text .= "Tasdiqlaysizmi?";
 
-        $replyMarkup = KeyboardFactory::confirmOrderInline();
-
-        Yii::$app->telegram->sendMessage($chatId, $text, $replyMarkup, 'HTML');
-
+        $session = TelegramSession::getSession($chatId);
+        $session->setStep(TelegramSession::STEP_CHECKOUT);
+        Yii::$app->telegram->sendMessage($chatId, $text, KeyboardFactory::confirmOrderInline(), 'HTML');
         return ['ok' => true];
     }
 }

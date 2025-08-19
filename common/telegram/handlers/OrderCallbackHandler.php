@@ -8,20 +8,17 @@ use common\models\OrderItems;
 
 class OrderCallbackHandler
 {
-    public function handle($callback)
+    public function handle($chatId, $message, $info, $session)
     {
-        $chatId = $callback['from']['id'] ?? null;
-        $data   = $callback['data'] ?? null;
 
-        if (!$chatId || !$data) return;
+        if (!$chatId || !$info) return;
 
-        if ($data === 'order_cancel') {
+        if ($info === 'order_cancel') {
             Yii::$app->telegram->sendMessage($chatId, "❌ Buyurtma bekor qilindi.");
             return;
         }
 
-        if ($data === 'order_confirm') {
-            // Transaction: cart -> orders
+        if ($info === 'order_confirm') {
             $db = Yii::$app->db;
             $tx = $db->beginTransaction();
             try {
@@ -33,22 +30,24 @@ class OrderCallbackHandler
                 }
 
                 $order = new Orders();
-                $order->chat_id = $chatId;
-                $order->status = Orders::STATUS_NEW;
+                $order->user_id = $chatId;
+                $order->status = 1;
                 $order->total_price = 0;
                 $order->created_at = time();
                 $order->save(false);
 
                 $total = 0;
                 foreach ($cartItems as $c) {
+                    /** @var Cart $c */
                     $sum = $c->quantity * $c->product->price;
                     $item = new OrderItems();
                     $item->order_id   = $order->id;
                     $item->product_id = $c->product_id;
-                    $item->name       = $c->product->name;
+                    $item->product_name       = $c->product->name;
                     $item->price      = $c->product->price;
                     $item->quantity   = $c->quantity;
-                    $item->sum        = $sum;
+                    $item->total_price        = $sum;
+                    $item->created_at        = time();
                     $item->save(false);
 
                     $total += $sum;

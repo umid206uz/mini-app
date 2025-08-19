@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "order_items".
@@ -18,14 +19,14 @@ use Yii;
  *
  * @property Orders $order
  */
-class OrderItems extends \yii\db\ActiveRecord
+class OrderItems extends ActiveRecord
 {
 
 
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'order_items';
     }
@@ -37,7 +38,7 @@ class OrderItems extends \yii\db\ActiveRecord
     {
         return [
             [['total_price'], 'default', 'value' => 1],
-            [['created_at'], 'default', 'value' => 1754635686],
+            [['created_at'], 'default', 'value' => time()],
             [['order_id', 'product_id', 'product_name'], 'required'],
             [['order_id', 'product_id', 'created_at'], 'integer'],
             [['product_name', 'quantity', 'price', 'total_price'], 'string', 'max' => 255],
@@ -48,7 +49,7 @@ class OrderItems extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => Yii::t('app', 'ID'),
