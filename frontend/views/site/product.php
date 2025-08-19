@@ -1,8 +1,5 @@
 <?php
 /** @var common\models\Product $product */
-/** @var integer $user_id */
-
-$user_id = Yii::$app->session->get('user_id');
 
 $this->registerJs(<<<JS
 $('#add-to-cart').on('click', function () {
@@ -13,8 +10,7 @@ $('#add-to-cart').on('click', function () {
         type: 'GET',
         data: {
             product_id: productId,
-            quantity: quantity,
-            user_id: $user_id
+            quantity: quantity
         },
         success: function (response) {
             if (response.success) {
