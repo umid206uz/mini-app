@@ -9,6 +9,7 @@ use frontend\assets\AppAsset;
 use yii\bootstrap5\Html;
 use yii\helpers\Url;
 
+$user_id = Yii::$app->session->get('user_id');
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -205,7 +206,7 @@ AppAsset::register($this);
                 </a>
             </li>
             <li class="nav-item center-item">
-                <a class="nav-link" href="<?= Url::to(['/site/cart', 'user_id' => $user_id])?>">
+                <a class="nav-link" href="<?= Url::to(['/site/cart'])?>">
                     <span>
                         <i class="nav-icon bi bi-bag"></i>
                         <span class="nav-text"><?=Yii::t("app","Cart")?></span>

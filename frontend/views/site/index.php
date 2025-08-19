@@ -5,7 +5,6 @@
 /** @var common\models\Category $category */
 /** @var common\models\Product $products */
 /** @var common\models\Product $product */
-/** @var integer $user_id */
 
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -74,7 +73,7 @@ JS
                         <div class="col-auto">
                             <?= Html::button('<i class="bi bi-plus size-22"></i>', [
                                 'class' => 'btn btn-sm avatar avatar-30 p-0 rounded-circle shadow btn-gradient modalButton',
-                                'value' => Url::to(['site/product', 'id' => $product->id, 'user_id' => $user_id]),
+                                'value' => Url::to(['site/product', 'id' => $product->id]),
                             ]);
                             ?>
                         </div>

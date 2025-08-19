@@ -2,6 +2,8 @@
 /** @var common\models\Product $product */
 /** @var integer $user_id */
 
+$user_id = Yii::$app->session->get('user_id');
+
 $this->registerJs(<<<JS
 $('#add-to-cart').on('click', function () {
     const productId = $(this).data('id');

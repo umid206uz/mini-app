@@ -80,26 +80,31 @@ class SiteController extends Controller
      */
     public function actionIndex($user_id)
     {
+        $session = Yii::$app->session;
+        if (!$session->isActive) {
+            $session->open();
+        }
+
+        $session->set('user_id', $user_id);
         $categories = Category::find()->all();
         $products = Product::find()->all();
         return $this->render('index', [
             'categories' => $categories,
-            'products' => $products,
-            'user_id' => $user_id,
+            'products' => $products
         ]);
     }
 
-    public function actionProduct($id, $user_id): string
+    public function actionProduct($id): string
     {
         $product = Product::findOne($id);
         return $this->renderAjax('product', [
-            'product' => $product,
-            'user_id' => $user_id,
+            'product' => $product
         ]);
     }
 
-    public function actionCart($user_id): string
+    public function actionCart(): string
     {
+        $user_id = Yii::$app->session->get('user_id');
         $cart = Cart::find()->where(['user_id' => $user_id])->all();
         return $this->render('cart', [
             'cart' => $cart
