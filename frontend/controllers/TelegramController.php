@@ -13,7 +13,7 @@ class TelegramController extends Controller
     {
         $data = json_decode(Yii::$app->request->getRawBody(), true);
 
-        if (!$data || !isset($data['message'])) {
+        if (!$data) {
             return 'ok';
         }
 
