@@ -23,15 +23,13 @@ class TelegramController extends Controller
             $dataText = $callback['data'];
             Yii::$app->telegram->sendMessage($chatId, $dataText);
             Yii::$app->telegramRouter->handleCallback($chatId, $dataText, $callback);
+        }else{
+            $chatId = $data['message']['chat']['id'];
+            $info = $data['message'];
+            $text   = trim($data['message']['text']);
+
+            Yii::$app->telegramRouter->handle($chatId, $text, $info);
         }
-
-        $chatId = $data['message']['chat']['id'];
-        $info = $data['message'];
-        $text   = trim($data['message']['text']);
-
-        Yii::$app->telegramRouter->handle($chatId, $text, $info);
-
-
 
         return 'ok';
     }
