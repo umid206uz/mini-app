@@ -24,10 +24,11 @@ class VerificationHandler
         }
 
         if (!$session->validateCode($message)){
-            $session->setStep(TelegramSession::STEP_MENU);
-            $session->setVerification(TelegramSession::STATUS_VERIFIED);
             Yii::$app->telegram->sendMessage($chatId, TextFactory::invalidVerificationCodeText(), KeyboardFactory::verification());
             return;
+        }else{
+            $session->setStep(TelegramSession::STEP_MENU);
+            $session->setVerification(TelegramSession::STATUS_VERIFIED);
         }
 
         Yii::$app->telegram->sendMessage($chatId, TextFactory::phoneNumberText($session->phone));
