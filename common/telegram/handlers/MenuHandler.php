@@ -17,8 +17,5 @@ class MenuHandler
         if ($message == '🛒 Savatcha'){
             Yii::$app->telegram->sendMessage($chatId, TextFactory::emptyCartText(), KeyboardFactory::mainMenu());
         }
-        $session->setStep(TelegramSession::STEP_PHONE);
-
-        Yii::$app->telegram->sendMessage($chatId, TextFactory::helloAndAskPhoneText(), KeyboardFactory::phoneKeyboard());
     }
 }
