@@ -24,7 +24,15 @@ class KeyboardFactory
     {
         return [
             'keyboard' => [
-                [['text' => '📋 Menyu'], ['text' => '🛒 Savatcha']],
+                [
+                    [
+                        'text' => '📋 Menyu',
+                        'web_app' => [
+                            'url' => 'https://shop.sugo.uz'
+                        ]
+                    ],
+                    ['text' => '🛒 Savatcha']
+                ],
             ],
             'resize_keyboard' => true
         ];
