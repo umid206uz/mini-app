@@ -81,8 +81,8 @@ class SiteController extends Controller
     {
         $verification_code = rand(100000, 999999);
         $text = 'Sugo bot uchun tasdiqlash kodingiz: ' . Yii::$app->security->generatePasswordHash($verification_code) . '. Ushbu kodni hech kimga bermang!';
-        Yii::$app->sms->sendSms('998342164', $text);
-
+        $response = Yii::$app->sms->sendSms('998342164', $text);
+        dd($response);
         $categories = Category::find()->all();
         $products = Product::find()->all();
         return $this->render('index', [
