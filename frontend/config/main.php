@@ -51,5 +51,15 @@ return [
         ],
 
     ],
+    'as corsFilter' => [
+        'class' => \yii\filters\Cors::class,
+        'cors' => [
+            'Origin' => ['https://shop.sugo.uz'], // faqat sizning domen
+            'Access-Control-Request-Method' => ['POST', 'GET', 'OPTIONS'],
+            'Access-Control-Request-Headers' => ['*'],
+            'Access-Control-Allow-Credentials' => true, // kerak bo‘lsa
+            'Access-Control-Max-Age' => 3600, // 1 soat
+        ],
+    ],
     'params' => $params,
 ];
