@@ -14,11 +14,9 @@ $this->title = 'Cart';
 $this->registerJsVar('chatId', Yii::$app->session->get('user_id'));
 
 $this->registerJs(<<<JS
-    const tg = window.Telegram.WebApp;
-
-    $("#checkoutBtn").on("click", function(e) {
+    $("#checkoutBtn").on("click", function() {
         alert(chatId);
-        e.preventDefault();
+        const tg = window.Telegram.WebApp;
 
         $.ajax({
             url: "https://shop.sugo.uz/checkout",
