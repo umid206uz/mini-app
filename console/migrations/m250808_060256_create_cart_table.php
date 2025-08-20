@@ -14,7 +14,7 @@ class m250808_060256_create_cart_table extends Migration
     {
         $this->createTable('{{%cart}}', [
             'id' => $this->primaryKey(),
-            'user_id' => $this->integer()->notNull(),
+            'user_id' => $this->bigInteger(20)->notNull(),
             'product_id' => $this->integer()->notNull(),
             'quantity' => $this->integer()->notNull(),
             'price' => $this->integer()->notNull(),
