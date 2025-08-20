@@ -46,7 +46,7 @@ class TextFactory
 
     public static function orderCancelledText(): string
     {
-        return "Buyurtma bekor qilindi. 😕 Menyuni ochib savatchani to\'ldirishingiz mumkin ☺";
+        return "Buyurtma bekor qilindi. 😕 Menyuni ochib savatchani to'ldirishingiz mumkin ☺";
     }
 
     public static function mainMenuText(): string
