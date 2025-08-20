@@ -23,8 +23,11 @@ use yii\db\ActiveRecord;
  * @property int $created_at
  * @property int $updated_at
  * @property int|null $approved_at
- *
+ * @property Regions $district
+ * @property User $operator
  * @property OrderItems[] $orderItems
+ * @property Regions $region
+ * @property User $user
  */
 class Orders extends ActiveRecord
 {
@@ -46,11 +49,15 @@ class Orders extends ActiveRecord
         return [
             [['operator_id', 'full_name', 'address', 'additional_information', 'approved_at'], 'default', 'value' => null],
             [['status'], 'default', 'value' => 0],
-            [['updated_at', 'created_at'], 'default', 'value' => time()],
+            [['updated_at'], 'default', 'value' => time()],
             [['user_id', 'phone', 'total_price'], 'required'],
             [['user_id', 'operator_id', 'region_id', 'district_id', 'total_price', 'status', 'created_at', 'updated_at', 'approved_at'], 'integer'],
             [['full_name', 'address', 'additional_information'], 'string', 'max' => 200],
             [['phone'], 'string', 'max' => 20],
+            [['district_id'], 'exist', 'skipOnError' => true, 'targetClass' => Regions::class, 'targetAttribute' => ['district_id' => 'id']],
+            [['operator_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['operator_id' => 'id']],
+            [['region_id'], 'exist', 'skipOnError' => true, 'targetClass' => Regions::class, 'targetAttribute' => ['region_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -78,6 +85,26 @@ class Orders extends ActiveRecord
     }
 
     /**
+     * Gets query for [[District]].
+     *
+     * @return ActiveQuery
+     */
+    public function getDistrict(): ActiveQuery
+    {
+        return $this->hasOne(Regions::class, ['id' => 'district_id']);
+    }
+
+    /**
+     * Gets query for [[Operator]].
+     *
+     * @return ActiveQuery
+     */
+    public function getOperator(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['id' => 'operator_id']);
+    }
+
+    /**
      * Gets query for [[OrderItems]].
      *
      * @return ActiveQuery
@@ -85,6 +112,26 @@ class Orders extends ActiveRecord
     public function getOrderItems(): ActiveQuery
     {
         return $this->hasMany(OrderItems::class, ['order_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Region]].
+     *
+     * @return ActiveQuery
+     */
+    public function getRegion(): ActiveQuery
+    {
+        return $this->hasOne(Regions::class, ['id' => 'region_id']);
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return ActiveQuery
+     */
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
 }
