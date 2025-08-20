@@ -46,22 +46,22 @@ class OrderCallbackHandler
             $order->save();
 
             $total = 0;
-            foreach ($cartItems as $cart_item) {
-                /** @var Cart $cart_item */
+            foreach ($cartItems as $cartItem) {
+                /** @var Cart $cartItem */
 
-                $sum = $cart_item->quantity * $cart_item->price;
+                $sum = $cartItem->quantity * $cartItem->price;
                 $item = new OrderItems();
                 $item->order_id = $order->id;
-                $item->product_id = $cart_item->product_id;
-                $item->product_name = $cart_item->product->name_uz;
-                $item->price = $cart_item->price;
-                $item->quantity = $cart_item->quantity;
+                $item->product_id = $cartItem->product_id;
+                $item->product_name = $cartItem->product->name_uz;
+                $item->price = $cartItem->price;
+                $item->quantity = $cartItem->quantity;
                 $item->total_price = $sum;
                 if ($item->save()){
-                    $cart_item->status = Cart::STATUS_INACTIVE;
-                    $cart_item->save();
-                    if ($cart_item->hasErrors()){
-                        Yii::$app->telegram->sendMessage($chatId, json_encode($cart_item->getErrors()));
+                    $cartItem->status = Cart::STATUS_INACTIVE;
+                    $cartItem->save();
+                    if ($cartItem->hasErrors()){
+                        Yii::$app->telegram->sendMessage($chatId, json_encode($cartItem->getErrors()));
                     }
                     if ($item->hasErrors()){
                         Yii::$app->telegram->sendMessage($chatId, json_encode($item->getErrors()));
