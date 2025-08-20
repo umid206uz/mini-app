@@ -47,27 +47,6 @@ JS
 
             'id',
             [
-                'attribute' => 'id',
-                'label' => 'Actions',
-                'format' => 'raw',
-                'value' => function ($model) {
-                    return Html::button('<i class="fa fa-eye"></i>', [
-                        'class' => 'btn btn-sm btn-primary view-order',
-                        'data-id' => $model->id,
-                    ]);
-                },
-            ],
-
-            'user_id',
-            'operator_id',
-            'full_name',
-            'phone',
-            'region_id',
-            'district_id',
-            'address',
-            'additional_information',
-            'total_price',
-            [
                 'attribute' => 'status',
                 'format' => 'raw',
                 'value' => function($model){
@@ -84,6 +63,16 @@ JS
                     );
                 }
             ],
+
+            'user_id',
+            'operator_id',
+            'full_name',
+            'phone',
+            'region_id',
+            'district_id',
+            'address',
+            'additional_information',
+            'total_price',
             [
                 'attribute' => 'created_at',
                 'format' => 'dateTime'
