@@ -17,9 +17,9 @@ class m250808_060549_create_order_items_table extends Migration
             'order_id' => $this->integer()->notNull(),
             'product_id' => $this->integer()->notNull(),
             'product_name' => $this->string()->notNull(),
-            'quantity' => $this->string()->notNull()->defaultValue(1),
-            'price' => $this->string()->notNull()->defaultValue(1),
-            'total_price' => $this->string()->notNull()->defaultValue(1),
+            'quantity' => $this->integer()->notNull()->defaultValue(1),
+            'price' => $this->integer()->notNull()->defaultValue(1),
+            'total_price' => $this->integer()->notNull()->defaultValue(1),
             'created_at' => $this->integer()->notNull()->defaultValue(time()),
         ]);
 
