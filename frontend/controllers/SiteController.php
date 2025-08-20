@@ -156,7 +156,7 @@ class SiteController extends Controller
 
         return [
             'success' => false,
-            'error' => 'Saqlashda xatolik.',
+            'error' => 'Saqlashda xatolik.' . json_encode($cartItem->getErrors()),
             'details' => $cartItem->getErrors(),
         ];
     }
