@@ -29,6 +29,7 @@ YiiAsset::register($this);
             'total_price',
             [
                 'attribute' => 'status',
+                'format' => 'raw',
                 'value' => function($model){
                     return statusText::getStatusName($model->status);
                 }

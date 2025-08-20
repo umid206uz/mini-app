@@ -39,6 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'total_price',
             [
                 'attribute' => 'status',
+                'format' => 'raw',
                 'value' => function($model){
                     return statusText::getStatusName($model->status);
                 }
