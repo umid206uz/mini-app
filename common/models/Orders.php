@@ -41,6 +41,8 @@ class Orders extends ActiveRecord
         return 'orders';
     }
 
+    const STATUS_NEW = 0;
+
     /**
      * {@inheritdoc}
      */

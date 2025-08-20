@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use common\order\status\statusText;
 use yii\web\YiiAsset;
 use yii\widgets\DetailView;
 
@@ -27,7 +27,13 @@ YiiAsset::register($this);
             'address',
             'additional_information',
             'total_price',
-            'status',
+            [
+                'attribute' => 'status',
+                'value' => function($model){
+                    return statusText::getStatusName($model->status);
+                },
+                'format' => 'dateTime'
+            ],
             [
                 'attribute' => 'created_at',
                 'format' => 'dateTime'

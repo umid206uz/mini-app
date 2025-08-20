@@ -16,6 +16,7 @@ return [
     "Status" => "Holati",
     "Price" => "Narxi",
     "Cart" => "Savatcha",
+    "New" => "Yangi",
     "Orders" => "Buyurtmalar",
     "Product added to cart" => "Mahsulot savatchaga qo'shildi",
     "ADD TO CART" => "Savatchaga qo'shish",

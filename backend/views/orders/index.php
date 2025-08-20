@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Orders;
+use common\order\status\statusText;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use kartik\grid\GridView;
@@ -36,7 +37,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'address',
             'additional_information',
             'total_price',
-            'status',
+            [
+                'attribute' => 'status',
+                'value' => function($model){
+                    return statusText::getStatusName($model->status);
+                },
+                'format' => 'dateTime'
+            ],
             [
                 'attribute' => 'created_at',
                 'format' => 'dateTime'
