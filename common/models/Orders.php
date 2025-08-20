@@ -67,20 +67,20 @@ class Orders extends ActiveRecord
     public function attributeLabels(): array
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'user_id' => Yii::t('app', 'User ID'),
-            'operator_id' => Yii::t('app', 'Operator ID'),
-            'full_name' => Yii::t('app', 'Full Name'),
-            'phone' => Yii::t('app', 'Phone'),
-            'region_id' => Yii::t('app', 'Region ID'),
-            'district_id' => Yii::t('app', 'District ID'),
+            'id' => Yii::t('app', 'Order ID'),
+            'user_id' => Yii::t('app', 'Customer ID'),
+            'operator_id' => Yii::t('app', 'Operator'),
+            'full_name' => Yii::t('app', 'Customer name'),
+            'phone' => Yii::t('app', 'Customer phone'),
+            'region_id' => Yii::t('app', 'Region'),
+            'district_id' => Yii::t('app', 'District'),
             'address' => Yii::t('app', 'Address'),
-            'additional_information' => Yii::t('app', 'Additional Information'),
-            'total_price' => Yii::t('app', 'Total Price'),
+            'additional_information' => Yii::t('app', 'Additional information'),
+            'total_price' => Yii::t('app', 'Total price'),
             'status' => Yii::t('app', 'Status'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
-            'approved_at' => Yii::t('app', 'Approved At'),
+            'created_at' => Yii::t('app', 'Created at'),
+            'updated_at' => Yii::t('app', 'Updated at'),
+            'approved_at' => Yii::t('app', 'Approved at'),
         ];
     }
 

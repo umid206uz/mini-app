@@ -23,4 +23,13 @@ return [
     "Description Uz" => "Qo'shimcha ma'lumot (O'zbekcha)",
     "Description Ru" => "Qo'shimcha ma'lumot (Ruscha)",
     "Description En" => "Qo'shimcha ma'lumot (Inglizcha)",
+    "Customer name" => "Mijoz F.I.SH",
+    "Customer phone" => "Mijoz telefon raqami",
+    "Customer ID" => "Mijoz ID",
+    "Region" => "Hudud",
+    "District" => "Tuman",
+    "Address" => "Manzil",
+    "Additional information" => "Qo'shimcha ma'lumot",
+    "Total price" => "Jami summa",
+    "Order ID" => "Buyurtma ID",
 ];
