@@ -44,10 +44,8 @@ class Cart extends ActiveRecord
             [['status'], 'default', 'value' => 1],
             [['created_at'], 'default', 'value' => time()],
             [['user_id', 'product_id', 'quantity', 'price'], 'required'],
-            [['product_id', 'quantity', 'price', 'status', 'created_at'], 'integer'],
-            [['user_id'], 'safe'],
+            [['product_id', 'quantity', 'price', 'status', 'created_at', 'user_id'], 'integer'],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::class, 'targetAttribute' => ['product_id' => 'id']],
-//            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
