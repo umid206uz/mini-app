@@ -30,62 +30,52 @@ class OrderCallbackHandler
         }
 
         if ($text_button == 'order_confirm') {
-            $db = Yii::$app->db;
-            $tx = $db->beginTransaction();
-            try {
-                $cart_items = Cart::find()->where(['user_id' => $chatId, 'status' => Cart::STATUS_ACTIVE])->all();
-                Yii::$app->telegram->sendMessage($chatId, json_encode($cart_items));
-                if (!$cart_items) {
-                    Yii::$app->telegram->sendMessage($chatId, TextFactory::emptyCartText());
-                    $tx->rollBack();
-                    return;
-                }
-
-                $order = new Orders();
-                $order->user_id = $chatId;
-                $order->full_name = $callback['from']['last_name'] . ' ' . $callback['from']['first_name'];
-                $order->phone = $session->phone;
-                $order->total_price = $session->phone;
-                $order->total_price = 0;
-                $order->save();
-
-                $total = 0;
-                foreach ($cart_items as $cart_item) {
-                    /** @var Cart $cart_item */
-
-                    $sum = $cart_item->quantity * $cart_item->price;
-                    $item = new OrderItems();
-                    $item->order_id = $order->id;
-                    $item->product_id = $cart_item->product_id;
-                    $item->product_name = $cart_item->product->name_uz;
-                    $item->price = $cart_item->price;
-                    $item->quantity = $cart_item->quantity;
-                    $item->total_price = $sum;
-                    if ($item->save()){
-                        $cart_item->status = Cart::STATUS_INACTIVE;
-                        $cart_item->save();
-                        if ($cart_item->hasErrors()){
-                            Yii::$app->telegram->sendMessage($chatId, json_encode($cart_item->getErrors()));
-                        }
-                        if ($item->hasErrors()){
-                            Yii::$app->telegram->sendMessage($chatId, json_encode($item->getErrors()));
-                        }
-                    }
-
-                    $total += $sum;
-                }
-
-                $order->total_price = $total;
-                $order->save();
-
-                $tx->commit();
-                $session->setStep(TelegramSession::STEP_MENU);
-                Yii::$app->telegram->sendMessage($chatId, TextFactory::orderAcceptedText($order->id, $total));
-            } catch (\Throwable $e) {
-                $tx->rollBack();
-                Yii::error($e->getMessage(), __METHOD__);
-                Yii::$app->telegram->sendMessage($chatId, "❌ Xatolik yuz berdi. Keyinroq urinib ko‘ring.");
+            $cart_items = Cart::find()->where(['user_id' => $chatId, 'status' => Cart::STATUS_ACTIVE])->all();
+            Yii::$app->telegram->sendMessage($chatId, json_encode($cart_items));
+            if (!$cart_items) {
+                Yii::$app->telegram->sendMessage($chatId, TextFactory::emptyCartText());
+                return;
             }
+
+            $order = new Orders();
+            $order->user_id = $chatId;
+            $order->full_name = $callback['from']['last_name'] . ' ' . $callback['from']['first_name'];
+            $order->phone = $session->phone;
+            $order->total_price = $session->phone;
+            $order->total_price = 0;
+            $order->save();
+
+            $total = 0;
+            foreach ($cart_items as $cart_item) {
+                /** @var Cart $cart_item */
+
+                $sum = $cart_item->quantity * $cart_item->price;
+                $item = new OrderItems();
+                $item->order_id = $order->id;
+                $item->product_id = $cart_item->product_id;
+                $item->product_name = $cart_item->product->name_uz;
+                $item->price = $cart_item->price;
+                $item->quantity = $cart_item->quantity;
+                $item->total_price = $sum;
+                if ($item->save()){
+                    $cart_item->status = Cart::STATUS_INACTIVE;
+                    $cart_item->save();
+                    if ($cart_item->hasErrors()){
+                        Yii::$app->telegram->sendMessage($chatId, json_encode($cart_item->getErrors()));
+                    }
+                    if ($item->hasErrors()){
+                        Yii::$app->telegram->sendMessage($chatId, json_encode($item->getErrors()));
+                    }
+                }
+
+                $total += $sum;
+            }
+
+            $order->total_price = $total;
+            $order->save();
+
+            $session->setStep(TelegramSession::STEP_MENU);
+            Yii::$app->telegram->sendMessage($chatId, TextFactory::orderAcceptedText($order->id, $total));
         }
     }
 }
