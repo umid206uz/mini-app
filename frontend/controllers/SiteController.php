@@ -132,7 +132,7 @@ class SiteController extends Controller
             return ['success' => false, 'error' => 'Foydalanuvchi aniqlanmadi.'];
         }
 
-        $cartItem = Cart::findOne(['user_id' => $user_id, 'product_id' => $product_id]);
+        $cartItem = Cart::findOne(['user_id' => $user_id, 'product_id' => $product_id, 'status' => Cart::STATUS_ACTIVE]);
         if ($cartItem) {
             $cartItem->quantity += $quantity;
         } else {
@@ -145,7 +145,7 @@ class SiteController extends Controller
         }
 
         if ($cartItem->save()) {
-            $cartCount = Cart::find()->where(['user_id' => $user_id])->count();
+            $cartCount = Cart::find()->where(['user_id' => $user_id, 'status' => Cart::STATUS_ACTIVE])->count();
             return [
                 'success' => true,
                 'count' => $cartCount,
