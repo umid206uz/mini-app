@@ -33,7 +33,7 @@ class OrderCallbackHandler
             $db = Yii::$app->db;
             $tx = $db->beginTransaction();
             try {
-                $cart_items = Cart::find()->where(['user_id' => $chatId, 'status' => Cart::STATUS_ACTIVE])->all();
+                $cart_items = Cart::find()->where(['user_id' => (int) $chatId, 'status' => Cart::STATUS_ACTIVE])->all();
                 Yii::$app->telegram->sendMessage($chatId, json_encode($cart_items));
                 if (!$cart_items) {
                     Yii::$app->telegram->sendMessage($chatId, TextFactory::emptyCartText());
