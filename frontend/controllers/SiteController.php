@@ -140,8 +140,7 @@ class SiteController extends Controller
                 'product_id' => $product_id,
                 'quantity' => $quantity,
                 'price' => $product->price,
-                'user_id' => $user_id,
-                'status' => Cart::STATUS_ACTIVE,
+                'user_id' => $user_id
             ]);
         }
 
