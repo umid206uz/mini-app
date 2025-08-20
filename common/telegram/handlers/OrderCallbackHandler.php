@@ -34,6 +34,7 @@ class OrderCallbackHandler
             $tx = $db->beginTransaction();
             try {
                 $cart_items = Cart::find()->where(['user_id' => $chatId, 'status' => Cart::STATUS_ACTIVE])->all();
+                Yii::$app->telegram->sendMessage($chatId, json_encode($cart_items));
                 if (!$cart_items) {
                     Yii::$app->telegram->sendMessage($chatId, TextFactory::emptyCartText());
                     $tx->rollBack();
@@ -51,7 +52,7 @@ class OrderCallbackHandler
                 $total = 0;
                 foreach ($cart_items as $cart_item) {
                     /** @var Cart $cart_item */
-                    Yii::$app->telegram->sendMessage($chatId, 'asdasd');
+
                     $sum = $cart_item->quantity * $cart_item->price;
                     $item = new OrderItems();
                     $item->order_id = $order->id;
