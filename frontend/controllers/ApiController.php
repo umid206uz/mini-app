@@ -51,7 +51,7 @@ class ApiController extends Controller
             return ['ok' => false, 'error' => 'Invalid chat_id'];
         }
 
-        $items = Cart::find()->where(['user_id' => $chatId])->all();
+        $items = Cart::find()->where(['user_id' => $chatId, 'status' => Cart::STATUS_ACTIVE])->all();
 
         if (!$items) {
             Yii::$app->telegram->sendMessage($chatId, "Savatchangiz bo‘sh 😕");

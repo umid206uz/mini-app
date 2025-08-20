@@ -210,7 +210,7 @@ AppAsset::register($this);
                     <span>
                         <i class="nav-icon bi bi-bag"></i>
                         <span class="nav-text"><?=Yii::t("app","Cart")?></span>
-                        <span class="countercart"><?= Cart::find()->where(['user_id' => $user_id])->count()?></span>
+                        <span class="countercart"><?= Cart::find()->where(['user_id' => $user_id, 'status' => Cart::STATUS_ACTIVE])->count()?></span>
                     </span>
                 </a>
             </li>
