@@ -11,35 +11,30 @@ use yii\captcha\Captcha;
 $this->title = 'Contact';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-contact">
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.
-    </p>
-
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
-
-                <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
-
-                <?= $form->field($model, 'email') ?>
-
-                <?= $form->field($model, 'subject') ?>
-
-                <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
-
-                <?= $form->field($model, 'verifyCode')->widget(Captcha::class, [
-                    'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
-                ]) ?>
-
-                <div class="form-group">
-                    <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+<!-- categories -->
+<div class="swiper-container categoriesswiper mb-3">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+        <!-- Slides -->
+        <?php foreach ($categories as $category):?>
+            <div class="swiper-slide" data-category="fruits">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <img src="template/img/berry-small.png" alt="">
+                    </div>
                 </div>
-
-            <?php ActiveForm::end(); ?>
-        </div>
+                <p class="categoryname"><?=$category->name_uz?></p>
+            </div>
+        <?php endforeach;?>
     </div>
+</div>
 
+<!-- Products -->
+<div class="row mb-3">
+    <div class="col">
+        <h5 class="mb-0">Popular</h5>
+    </div>
+    <div class="col-auto">
+        <a href="#" class="link text-color-theme">View All <i class="bi bi-chevron-right"></i></a>
+    </div>
 </div>
