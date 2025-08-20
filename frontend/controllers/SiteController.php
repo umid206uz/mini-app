@@ -116,7 +116,7 @@ class SiteController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $product_id = Yii::$app->request->get('product_id');
-        $user_id = Yii::$app->session->get('user_id');
+        $user_id = (int) Yii::$app->session->get('user_id');
         $quantity = (int) Yii::$app->request->get('quantity',1);
 
         if (!$product_id || $quantity < 1) {
