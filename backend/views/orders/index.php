@@ -37,9 +37,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'additional_information',
             'total_price',
             'status',
-            'created_at',
-            'updated_at',
-            'approved_at',
+            [
+                'attribute' => 'created_at',
+                'format' => 'dateTime'
+            ],
+            [
+                'attribute' => 'updated_at',
+                'format' => 'dateTime'
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Orders $model, $key, $index, $column) {
