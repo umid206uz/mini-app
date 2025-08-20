@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Orders;
 use common\models\OrdersSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -67,7 +68,7 @@ class OrdersController extends Controller
      * @return Orders the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($id): Orders
     {
         if (($model = Orders::findOne(['id' => $id])) !== null) {
             return $model;
@@ -75,4 +76,16 @@ class OrdersController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
+    public function actionViewDetails($id): string
+    {
+        $order = Orders::findOne($id);
+        $orderItems = $order->orderItems;
+
+        return $this->renderAjax('_order_details', [
+            'order' => $order,
+            'orderItems' => $orderItems,
+        ]);
+    }
+
 }
