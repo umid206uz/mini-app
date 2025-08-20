@@ -104,6 +104,8 @@ class SiteController extends Controller
 
     public function actionCart(): string
     {
+        $cart_items = Cart::find()->where(['user_id' => 612652165, 'status' => Cart::STATUS_ACTIVE])->all();
+        dd($cart_items);
         $user_id = Yii::$app->session->get('user_id');
         $cart = Cart::find()->where(['user_id' => $user_id, 'status' => Cart::STATUS_ACTIVE])->all();
         return $this->render('cart', [
