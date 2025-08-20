@@ -21,9 +21,6 @@ class OrderCallbackHandler
                 /** @var Cart $cart_item */
                 $cart_item->status = Cart::STATUS_INACTIVE;
                 $cart_item->save();
-                if ($cart_item->hasErrors()){
-                    Yii::$app->telegram->sendMessage($chatId, json_encode($cart_item->getErrors()));
-                }
             }
             Yii::$app->telegram->sendMessage($chatId, TextFactory::orderCancelledText());
 
@@ -65,6 +62,12 @@ class OrderCallbackHandler
                     if ($item->save()){
                         $cart_item->status = Cart::STATUS_INACTIVE;
                         $cart_item->save();
+                        if ($cart_item->hasErrors()){
+                            Yii::$app->telegram->sendMessage($chatId, json_encode($cart_item->getErrors()));
+                        }
+                        if ($item->hasErrors()){
+                            Yii::$app->telegram->sendMessage($chatId, json_encode($item->getErrors()));
+                        }
                     }
 
                     $total += $sum;
