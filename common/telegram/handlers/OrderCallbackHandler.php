@@ -47,7 +47,6 @@ class OrderCallbackHandler
             $total = 0;
             foreach ($cartItems as $cartItem) {
                 /** @var Cart $cartItem */
-                Yii::$app->telegram->sendMessage($chatId, $cartItem->created_at);
                 $sum = $cartItem->quantity * $cartItem->price;
                 $item = new OrderItems();
                 $item->order_id = $order->id;
