@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -12,12 +13,13 @@ use yii\db\ActiveRecord;
  * @property int $order_id
  * @property int $product_id
  * @property string $product_name
- * @property string $quantity
- * @property string $price
- * @property string $total_price
+ * @property int $quantity
+ * @property int $price
+ * @property int $total_price
  * @property int $created_at
  *
  * @property Orders $order
+ * @property Product $product
  */
 class OrderItems extends ActiveRecord
 {
@@ -40,9 +42,10 @@ class OrderItems extends ActiveRecord
             [['total_price'], 'default', 'value' => 1],
             [['created_at'], 'default', 'value' => time()],
             [['order_id', 'product_id', 'product_name'], 'required'],
-            [['order_id', 'product_id', 'created_at'], 'integer'],
-            [['product_name', 'quantity', 'price', 'total_price'], 'string', 'max' => 255],
+            [['order_id', 'product_id', 'quantity', 'price', 'total_price', 'created_at'], 'integer'],
+            [['product_name'], 'string', 'max' => 255],
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => Orders::class, 'targetAttribute' => ['order_id' => 'id']],
+            [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::class, 'targetAttribute' => ['product_id' => 'id']],
         ];
     }
 
@@ -66,11 +69,21 @@ class OrderItems extends ActiveRecord
     /**
      * Gets query for [[Order]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getOrder()
+    public function getOrder(): ActiveQuery
     {
         return $this->hasOne(Orders::class, ['id' => 'order_id']);
+    }
+
+    /**
+     * Gets query for [[Product]].
+     *
+     * @return ActiveQuery
+     */
+    public function getProduct(): ActiveQuery
+    {
+        return $this->hasOne(Product::class, ['id' => 'product_id']);
     }
 
 }
