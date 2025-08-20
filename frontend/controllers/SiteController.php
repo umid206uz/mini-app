@@ -145,7 +145,7 @@ class SiteController extends Controller
             ]);
         }
 
-        if ($cartItem->save()) {
+        if ($cartItem->save(false)) {
             $cartCount = Cart::find()->where(['user_id' => $user_id])->count();
             return [
                 'success' => true,
