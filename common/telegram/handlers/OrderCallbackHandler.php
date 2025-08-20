@@ -16,7 +16,7 @@ class OrderCallbackHandler
         if (!$chatId || !$text_button) return;
 
         if ($text_button == 'order_cancel') {
-            $cart_items = Cart::find()->where(['chat_id' => $chatId, 'status' => Cart::STATUS_ACTIVE])->all();
+            $cart_items = Cart::find()->where(['user_id' => $chatId, 'status' => Cart::STATUS_ACTIVE])->all();
             foreach ($cart_items as $cart_item){
                 /** @var Cart $cart_item */
                 $cart_item->status = Cart::STATUS_INACTIVE;
@@ -33,7 +33,7 @@ class OrderCallbackHandler
             $db = Yii::$app->db;
             $tx = $db->beginTransaction();
             try {
-                $cart_items = Cart::find()->where(['chat_id' => $chatId, 'status' => Cart::STATUS_ACTIVE])->all();
+                $cart_items = Cart::find()->where(['user_id' => $chatId, 'status' => Cart::STATUS_ACTIVE])->all();
                 if (!$cart_items) {
                     Yii::$app->telegram->sendMessage($chatId, TextFactory::emptyCartText());
                     $tx->rollBack();
