@@ -3,6 +3,7 @@ namespace common\telegram\handlers;
 
 use common\models\TelegramSession;
 use common\telegram\keyboards\KeyboardFactory;
+use common\telegram\text\TextFactory;
 use Yii;
 use common\models\Cart;
 use common\models\Orders;
@@ -15,9 +16,16 @@ class OrderCallbackHandler
         if (!$chatId || !$text_button) return;
 
         if ($text_button == 'order_cancel') {
-            Yii::$app->telegram->sendMessage($chatId, "❌ Buyurtma bekor qilindi.");
+            $cart_items = Cart::find()->where(['chat_id' => $chatId, 'status' => Cart::STATUS_ACTIVE])->all();
+            foreach ($cart_items as $cart_item){
+                /** @var Cart $cart_item */
+                $cart_item->status = Cart::STATUS_INACTIVE;
+                $cart_item->save();
+            }
+            Yii::$app->telegram->sendMessage($chatId, TextFactory::orderCancelledText());
+
             $session->setStep(TelegramSession::STEP_MENU);
-            Yii::$app->telegram->sendMessage($chatId, "Endi asosiy menyu:", KeyboardFactory::mainMenu());
+            Yii::$app->telegram->sendMessage($chatId, TextFactory::mainMenuText(), KeyboardFactory::mainMenu());
             return;
         }
 
@@ -25,50 +33,46 @@ class OrderCallbackHandler
             $db = Yii::$app->db;
             $tx = $db->beginTransaction();
             try {
-                $cartItems = Cart::find()->where(['chat_id' => $chatId, 'status' => 0])->all();
-                if (!$cartItems) {
-                    Yii::$app->telegram->sendMessage($chatId, "Savatchangiz bo‘sh 😕");
+                $cart_items = Cart::find()->where(['chat_id' => $chatId, 'status' => Cart::STATUS_ACTIVE])->all();
+                if (!$cart_items) {
+                    Yii::$app->telegram->sendMessage($chatId, TextFactory::emptyCartText());
                     $tx->rollBack();
                     return;
                 }
 
                 $order = new Orders();
                 $order->user_id = $chatId;
-                $order->status = 1;
+                $order->full_name = $callback['from']['last_name'] . ' ' . $callback['from']['first_name'];
+                $order->phone = $session->phone;
+                $order->total_price = $session->phone;
                 $order->total_price = 0;
-                $order->created_at = time();
-                $order->save(false);
+                $order->save();
 
                 $total = 0;
-                foreach ($cartItems as $c) {
-                    /** @var Cart $c */
-                    $sum = $c->quantity * $c->product->price;
+                foreach ($cart_items as $cart_item) {
+                    /** @var Cart $cart_item */
+                    $sum = $cart_item->quantity * $cart_item->price;
                     $item = new OrderItems();
-                    $item->order_id   = $order->id;
-                    $item->product_id = $c->product_id;
-                    $item->product_name       = $c->product->name;
-                    $item->price      = $c->product->price;
-                    $item->quantity   = $c->quantity;
-                    $item->total_price        = $sum;
-                    $item->created_at        = time();
-                    $item->save(false);
+                    $item->order_id = $order->id;
+                    $item->product_id = $cart_item->product_id;
+                    $item->product_name = $cart_item->product->name;
+                    $item->price = $cart_item->price;
+                    $item->quantity = $cart_item->quantity;
+                    $item->total_price = $sum;
+                    if ($item->save()){
+                        $cart_item->status = Cart::STATUS_INACTIVE;
+                        $cart_item->save();
+                    }
 
                     $total += $sum;
-                    $c->status = 1;
-                    $c->save(false);
                 }
 
                 $order->total_price = $total;
-                $order->save(false);
+                $order->save();
 
                 $tx->commit();
-
-                Yii::$app->telegram->sendMessage(
-                    $chatId,
-                    "✅ Buyurtma qabul qilindi!\nBuyurtma raqami: #{$order->id}\nJami: <b>{$total} so‘m</b>",
-                    [],
-                    'HTML'
-                );
+                $session->setStep(TelegramSession::STEP_MENU);
+                Yii::$app->telegram->sendMessage($chatId, TextFactory::orderAcceptedText($order->id, $total));
             } catch (\Throwable $e) {
                 $tx->rollBack();
                 Yii::error($e->getMessage(), __METHOD__);

@@ -41,6 +41,21 @@ class TextFactory
 
     public static function emptyCartText(): string
     {
-        return 'Sizning savatchangiz hozircha bo\'sh ';
+        return 'Sizning savatchangiz hozircha bo\'sh 😕';
+    }
+
+    public static function orderCancelledText(): string
+    {
+        return '❌ Buyurtma bekor qilindi.';
+    }
+
+    public static function mainMenuText(): string
+    {
+        return 'Endi asosiy menyu:';
+    }
+
+    public static function orderAcceptedText($order_id, $total): string
+    {
+        return "✅ Buyurtma qabul qilindi!\nBuyurtma raqami: #{$order_id}\nJami: {$total} so‘m";
     }
 }

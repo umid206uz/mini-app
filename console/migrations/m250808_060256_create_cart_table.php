@@ -18,6 +18,7 @@ class m250808_060256_create_cart_table extends Migration
             'product_id' => $this->integer()->notNull(),
             'quantity' => $this->integer()->notNull(),
             'price' => $this->integer()->notNull(),
+            'status' => $this->integer()->defaultValue(1)->notNull(),
             'created_at' => $this->integer()->notNull()->defaultValue(time()),
         ]);
 

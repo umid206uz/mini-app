@@ -1,6 +1,7 @@
 <?php
 namespace common\telegram\handlers;
 
+use common\models\Cart;
 use common\models\TelegramSession;
 use common\telegram\keyboards\KeyboardFactory;
 use common\telegram\text\TextFactory;
@@ -15,7 +16,14 @@ class MenuHandler
         }
 
         if ($message == '🛒 Savatcha'){
-            Yii::$app->telegram->sendMessage($chatId, TextFactory::emptyCartText(), KeyboardFactory::mainMenu());
+            $model = Cart::find()->where(['user_id' => $session->chat_id])->all();
+            if (!$model){
+                Yii::$app->telegram->sendMessage($chatId, TextFactory::emptyCartText(), KeyboardFactory::mainMenu());
+                return;
+            }
+
+
+
         }
     }
 }

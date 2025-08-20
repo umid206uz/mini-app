@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "orders".
@@ -24,14 +26,14 @@ use Yii;
  *
  * @property OrderItems[] $orderItems
  */
-class Orders extends \yii\db\ActiveRecord
+class Orders extends ActiveRecord
 {
 
 
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'orders';
     }
@@ -44,7 +46,7 @@ class Orders extends \yii\db\ActiveRecord
         return [
             [['operator_id', 'full_name', 'address', 'additional_information', 'approved_at'], 'default', 'value' => null],
             [['status'], 'default', 'value' => 0],
-            [['updated_at'], 'default', 'value' => 1754635686],
+            [['updated_at', 'created_at'], 'default', 'value' => time()],
             [['user_id', 'phone', 'total_price'], 'required'],
             [['user_id', 'operator_id', 'region_id', 'district_id', 'total_price', 'status', 'created_at', 'updated_at', 'approved_at'], 'integer'],
             [['full_name', 'address', 'additional_information'], 'string', 'max' => 200],
@@ -55,7 +57,7 @@ class Orders extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => Yii::t('app', 'ID'),
@@ -78,9 +80,9 @@ class Orders extends \yii\db\ActiveRecord
     /**
      * Gets query for [[OrderItems]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getOrderItems()
+    public function getOrderItems(): ActiveQuery
     {
         return $this->hasMany(OrderItems::class, ['order_id' => 'id']);
     }
