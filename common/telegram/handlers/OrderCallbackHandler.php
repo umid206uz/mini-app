@@ -57,7 +57,10 @@ class OrderCallbackHandler
                 $item->price = $cartItem->price;
                 $item->quantity = $cartItem->quantity;
                 $item->total_price = $sum;
+                $item->save();
+                Yii::$app->telegram->sendMessage($chatId, json_encode($item->getErrors()));
                 $cartItem->status = Cart::STATUS_INACTIVE;
+                $cartItem->save();
                 if ($item->save()){
                     Yii::$app->telegram->sendMessage($chatId, 'order items saqlandi');
                 }
