@@ -30,7 +30,7 @@ class OrderCallbackHandler
         }
 
         if ($text_button == 'order_confirm') {
-            $cartItems = Cart::find()->where(['user_id' => 612652165, 'status' => Cart::STATUS_ACTIVE])->all();
+            $cartItems = Cart::find()->where(['user_id' => 612652165])->all();
             Yii::$app->telegram->sendMessage($chatId, json_encode($cartItems));
             if (!$cartItems) {
                 Yii::$app->telegram->sendMessage($chatId, TextFactory::emptyCartText());
