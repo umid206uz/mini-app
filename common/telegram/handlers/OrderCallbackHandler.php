@@ -30,7 +30,7 @@ class OrderCallbackHandler
         }
 
         if ($text_button == 'order_confirm') {
-            $cartItems = Cart::find()->where(['user_id' => 612652165])->all();
+            $cartItems = Cart::find()->where(['user_id' => $chatId, 'status' => Cart::STATUS_ACTIVE])->all();
             Yii::$app->telegram->sendMessage($chatId, json_encode($cartItems));
             if (!$cartItems) {
                 Yii::$app->telegram->sendMessage($chatId, TextFactory::emptyCartText());
@@ -57,6 +57,10 @@ class OrderCallbackHandler
                 $item->price = $cartItem->price;
                 $item->quantity = $cartItem->quantity;
                 $item->total_price = $sum;
+                $item->save();
+                if ($cartItem->hasErrors()){
+                    Yii::$app->telegram->sendMessage($chatId, json_encode($cartItem->getErrors()));
+                }
                 if ($item->save()){
                     $cartItem->status = Cart::STATUS_INACTIVE;
                     $cartItem->save();
