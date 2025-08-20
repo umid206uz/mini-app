@@ -31,8 +31,7 @@ YiiAsset::register($this);
                 'attribute' => 'status',
                 'value' => function($model){
                     return statusText::getStatusName($model->status);
-                },
-                'format' => 'dateTime'
+                }
             ],
             [
                 'attribute' => 'created_at',
