@@ -46,7 +46,7 @@ class TextFactory
 
     public static function orderCancelledText(): string
     {
-        return '❌ Buyurtma bekor qilindi.';
+        return 'Buyurtma bekor qilindi. 😕';
     }
 
     public static function mainMenuText(): string
