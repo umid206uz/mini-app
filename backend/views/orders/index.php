@@ -19,7 +19,7 @@ $(document).on('click', '.view-order', function () {
     $('#orderModal').modal('show').find('#orderModalContent')
         .html('<div class="text-center p-3"><i class="fa fa-spinner fa-spin fa-2x"></i></div>');
 
-    $.get('/orders/view-details', {id: orderId}, function (data) {
+    $.get('orders/view-details', {id: orderId}, function (data) {
         $('#orderModalContent').html(data);
     });
 });
