@@ -55,7 +55,7 @@ class OrderCallbackHandler
                     $item = new OrderItems();
                     $item->order_id = $order->id;
                     $item->product_id = $cart_item->product_id;
-                    $item->product_name = $cart_item->product->name;
+                    $item->product_name = $cart_item->product->name_uz;
                     $item->price = $cart_item->price;
                     $item->quantity = $cart_item->quantity;
                     $item->total_price = $sum;
