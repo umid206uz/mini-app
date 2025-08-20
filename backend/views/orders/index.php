@@ -14,15 +14,18 @@ use yii\widgets\Pjax;
 $this->title = Yii::t('app', 'Orders');
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerJs(<<<JS
-$(document).on('click', '.view-order', function () {
-    let orderId = $(this).data('id');
-    $('#orderModal').modal('show').find('#orderModalContent')
-        .html('<div class="text-center p-3"><i class="fa fa-spinner fa-spin fa-2x"></i></div>');
-
-    $.get('view-details', {id: orderId}, function (data) {
-        $('#orderModalContent').html(data);
+function loadOrderModal(el) {
+    let url = $(el).attr('href');
+    $("#orderModalContent").html(
+        '<div class="p-5 text-center">' +
+        '<div class="spinner-border text-primary" role="status">' +
+        '<span class="visually-hidden">Yuklanmoqda...</span>' +
+        '</div></div>'
+    );
+    $.get(url, function(data) {
+        $("#orderModalContent").html(data);
     });
-});
+}
 
 
 JS
@@ -68,7 +71,17 @@ JS
                 'attribute' => 'status',
                 'format' => 'raw',
                 'value' => function($model){
-                    return statusText::getStatusName($model->status);
+                    return Html::a(
+                        statusText::getStatusName($model->status),
+                        ['view-details', 'id' => $model->id],
+                        [
+                            'class' => 'btn btn-sm btn-outline-primary rounded-pill px-3',
+                            'data-bs-toggle' => 'modal',
+                            'data-bs-target' => '#orderModal',
+                            'data-id' => $model->id,
+                            'onclick' => 'loadOrderModal(this); return false;',
+                        ]
+                    );
                 }
             ],
             [
@@ -96,14 +109,14 @@ use yii\bootstrap5\Modal;
 
 Modal::begin([
     'id' => 'orderModal',
-    'title' => '<h5>Order Details</h5>',
+    'title' => '<h5 class="modal-title">Buyurtma ma\'lumotlari</h5>',
     'size' => Modal::SIZE_LARGE,
-    'options' => ['tabindex' => false],
+    'options' => ['class' => 'fade'],
 ]);
 ?>
-<div id="orderModalContent">
-    <div class="text-center p-3">
-        <i class="fa fa-spinner fa-spin fa-2x"></i>
+<div id="orderModalContent" class="p-3 text-center">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Yuklanmoqda...</span>
     </div>
 </div>
 <?php Modal::end(); ?>
