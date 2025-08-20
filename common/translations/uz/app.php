@@ -9,6 +9,7 @@ return [
     "Filename" => "Fayl nomi",
     "Created at" => "Yaratilgan vaqti",
     "Updated at" => "O'zgartirilgan vaqti",
+    "Approved at" => "Tasdiqlangan vaqti",
     "Update" => "O'zgartirish",
     "Delete" => "O'chirish",
     "Save" => "Saqlash",
