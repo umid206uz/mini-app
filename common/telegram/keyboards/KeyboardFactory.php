@@ -25,7 +25,7 @@ class KeyboardFactory
         return [
             'keyboard' => [
                 [
-                    ['text' => '📋 Buyurtma berish'],
+                    ['text' => '🛍 Mahsulotlar'],
                     ['text' => '🛒 Savatcha']
                 ],
             ],
