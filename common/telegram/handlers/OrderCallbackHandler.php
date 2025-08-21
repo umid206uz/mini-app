@@ -42,7 +42,7 @@ class OrderCallbackHandler
             $order->total_price = $session->phone;
             $order->total_price = 0;
             $order->save();
-
+            Yii::$app->telegram->sendMessage($chatId, json_encode($order->getErrors()));
             $total = 0;
             foreach ($cartItems as $cartItem) {
                 /** @var Cart $cartItem */
