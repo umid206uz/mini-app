@@ -30,6 +30,6 @@ class PhoneHandler
         }
 
         Yii::$app->telegram->sendMessage($chatId, TextFactory::phoneNumberText($phone));
-        Yii::$app->telegram->sendMessage($chatId, "Endi asosiy menyu:", KeyboardFactory::mainMenu());
+        Yii::$app->telegram->sendMessage($chatId, TextFactory::openMenuText(), KeyboardFactory::openMenuInline($chatId));
     }
 }
