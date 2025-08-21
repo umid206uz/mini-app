@@ -22,6 +22,7 @@ class OrderCallbackHandler
                 $cart_item->status = Cart::STATUS_INACTIVE;
                 $cart_item->save();
             }
+            Yii::$app->telegram->answerCallbackQuery($callback['id']);
             Yii::$app->telegram->deleteMessage($chatId, $callback['message']['message_id']);
             Yii::$app->telegram->sendMessage($chatId, TextFactory::orderCancelledText(), KeyboardFactory::openMenuInline($chatId));
             $session->setStep(TelegramSession::STEP_MENU);
@@ -71,6 +72,7 @@ class OrderCallbackHandler
             $order->save();
 
             $session->setStep(TelegramSession::STEP_MENU);
+            Yii::$app->telegram->answerCallbackQuery($callback['id']);
             Yii::$app->telegram->deleteMessage($chatId, $callback['message']['message_id']);
             Yii::$app->telegram->sendMessage($chatId, TextFactory::orderAcceptedText($order->id, $lines, $total));
         }

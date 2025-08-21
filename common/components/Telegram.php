@@ -31,6 +31,15 @@ class Telegram extends Component
         $this->sendRequest($url, $data);
     }
 
+    public function answerCallbackQuery($callback_query_id)
+    {
+        $url = "https://api.telegram.org/bot{$this->botToken}/answerCallbackQuery";
+        $data = [
+            'callback_query_id' => $callback_query_id
+        ];
+        $this->sendRequest($url, $data);
+    }
+
     protected function sendRequest($url, $data)
     {
         $ch = curl_init();
