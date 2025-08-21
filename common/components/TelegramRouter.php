@@ -45,10 +45,6 @@ class TelegramRouter
                 (new $this->handlers['menu'])->handle($chat_id, $message_text, $message_object, $session);
                 break;
 
-            case TelegramSession::STEP_CHECKOUT:
-                (new $this->handlers['checkout'])->handle($chat_id, $message_text, $message_object, $session);
-                break;
-
             default:
                 (new DefaultHandler())->handle($chat_id, $message_object);
         }
