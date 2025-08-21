@@ -29,7 +29,7 @@ class PhoneHandler
             return;
         }
 
-        Yii::$app->telegram->sendMessage($chatId, TextFactory::phoneNumberText($phone));
+        Yii::$app->telegram->sendMessage($chatId, TextFactory::phoneNumberText($phone), KeyboardFactory::mainMenu());
         Yii::$app->telegram->sendMessage($chatId, TextFactory::openMenuText(), KeyboardFactory::openMenuInline($chatId));
     }
 }

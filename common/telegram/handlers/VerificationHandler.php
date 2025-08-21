@@ -30,7 +30,7 @@ class VerificationHandler
             $session->setVerification(TelegramSession::STATUS_VERIFIED);
         }
 
-        Yii::$app->telegram->sendMessage($chatId, TextFactory::phoneNumberText($session->phone));
+        Yii::$app->telegram->sendMessage($chatId, TextFactory::phoneNumberText($session->phone), KeyboardFactory::mainMenu());
         Yii::$app->telegram->sendMessage($chatId, TextFactory::openMenuText(), KeyboardFactory::openMenuInline($chatId));
     }
 }
