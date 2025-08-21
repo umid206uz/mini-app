@@ -44,15 +44,19 @@ class OrderCallbackHandler
             $order->save();
 
             $total = 0;
+            $lines = [];
             foreach ($cartItems as $cartItem) {
                 /** @var Cart $cartItem */
+                $name = $cartItem->product->name_uz ?? 'Mahsulot';
+                $qty  = $cartItem->quantity;
+                $price = $cartItem->price;
                 $sum = $cartItem->quantity * $cartItem->price;
                 $item = new OrderItems();
                 $item->order_id = $order->id;
                 $item->product_id = $cartItem->product_id;
-                $item->product_name = $cartItem->product->name_uz;
-                $item->price = $cartItem->price;
-                $item->quantity = $cartItem->quantity;
+                $item->product_name = $name;
+                $item->price = $price;
+                $item->quantity = $qty;
                 $item->total_price = $sum;
                 if ($item->save()){
                     $cartItem->status = Cart::STATUS_INACTIVE;
@@ -60,13 +64,15 @@ class OrderCallbackHandler
                 }
 
                 $total += $sum;
+                $lines[] = "{$name} x {$qty} = {$sum} so‘m";
             }
 
             $order->total_price = $total;
             $order->save();
 
             $session->setStep(TelegramSession::STEP_MENU);
-            Yii::$app->telegram->sendMessage($chatId, TextFactory::orderAcceptedText($order->id, $total));
+            Yii::$app->telegram->deleteMessage($chatId, $callback['message']['message_id']);
+            Yii::$app->telegram->sendMessage($chatId, TextFactory::orderAcceptedText($order->id, $lines, $total));
         }
     }
 }

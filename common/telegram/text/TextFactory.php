@@ -54,8 +54,12 @@ class TextFactory
         return 'Endi asosiy menyu:';
     }
 
-    public static function orderAcceptedText($order_id, $total): string
+    public static function orderAcceptedText($order_id, $lines, $total): string
     {
-        return "✅ Buyurtma qabul qilindi!\nBuyurtma raqami: #{$order_id}\nJami: {$total} so‘m";
+        $text = "✅ Buyurtma qabul qilindi!\n\n";
+        $text .= "Buyurtma raqami: #{$order_id}\n\n";
+        $text .= implode("\n", $lines);
+        $text .= "\n\nJami: {$total} so‘m";
+        return $text;
     }
 }
