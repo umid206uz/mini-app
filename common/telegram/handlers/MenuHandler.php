@@ -1,8 +1,8 @@
 <?php
 namespace common\telegram\handlers;
 
-use CartHelper;
 use common\models\Cart;
+use common\telegram\helpers\CartHelper;
 use common\telegram\keyboards\KeyboardFactory;
 use common\telegram\text\TextFactory;
 use Yii;

@@ -1,8 +1,7 @@
 <?php
 namespace frontend\controllers;
 
-use CartHelper;
-use common\models\TelegramSession;
+use common\telegram\helpers\CartHelper;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
