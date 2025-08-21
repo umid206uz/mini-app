@@ -1,5 +1,7 @@
 <?php
 
+namespace common\telegram\helpers;
+
 use common\models\Cart;
 
 class CartHelper
