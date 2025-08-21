@@ -64,23 +64,4 @@ class TextFactory
         $text .= "\n\nJami: {$total} so‘m";
         return $text;
     }
-
-    public static function cartText($cart): string
-    {
-        $lines = [];
-        $total = 0;
-        foreach ($cart as $row) {
-            /** @var Cart $row */
-            $name = $row->product->name_uz ?? 'Mahsulot';
-            $qty  = (int)$row->quantity;
-            $price = (int)$row->price;
-            $sum = $qty * $price;
-            $total += $sum;
-            $lines[] = "{$name} x {$qty} = {$sum} so‘m";
-        }
-        $text = "🛒 Sizning savatingiz:\n\n";
-        $text .= implode("\n", $lines);
-        $text .= "\n\n💴Jami: {$total} so‘m";
-        return $text;
-    }
 }

@@ -1,8 +1,8 @@
 <?php
 namespace common\telegram\handlers;
 
+use CartHelper;
 use common\models\Cart;
-use common\models\TelegramSession;
 use common\telegram\keyboards\KeyboardFactory;
 use common\telegram\text\TextFactory;
 use Yii;
@@ -22,7 +22,7 @@ class MenuHandler
                 return;
             }
 
-            Yii::$app->telegram->sendMessage($chatId, TextFactory::cartText($model), KeyboardFactory::cartInline());
+            Yii::$app->telegram->sendMessage($chatId, CartHelper::generateCartText($model, "🛒 Sizning savatingiz"), KeyboardFactory::cartInline());
         }
     }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use CartHelper;
 use common\models\TelegramSession;
 use Yii;
 use yii\web\Controller;
@@ -58,24 +59,7 @@ class ApiController extends Controller
             return ['ok' => true, 'empty' => true];
         }
 
-        $lines = [];
-        $total = 0;
-        foreach ($items as $row) {
-            /** @var Cart $row */
-            $name = $row->product->name_uz ?? 'Mahsulot';
-            $qty  = (int)$row->quantity;
-            $price = (int)$row->price;
-            $sum = $qty * $price;
-            $total += $sum;
-            $lines[] = "{$name} x {$qty} = {$sum} so‘m";
-        }
-
-        $text  = "🛒 Sizning buyurtmangiz:\n\n";
-        $text .= implode("\n", $lines);
-        $text .= "\n\nJami: {$total} so‘m\n";
-        $text .= "Tasdiqlaysizmi?";
-
-        Yii::$app->telegram->sendMessage($chatId, $text, KeyboardFactory::confirmOrderInline(), 'HTML');
+        Yii::$app->telegram->sendMessage($chatId, CartHelper::generateCartText($items, "🛒 Sizning buyurtmangiz", true), KeyboardFactory::confirmOrderInline());
         return ['ok' => true];
     }
 }
