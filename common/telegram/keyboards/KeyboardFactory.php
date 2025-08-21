@@ -45,13 +45,7 @@ class KeyboardFactory
                         ]
                     ]
                 ]
-            ],
-            'keyboard' => [
-                [
-                    ['text' => '📋 Buyurtma berish'],
-                    ['text' => '🛒 Savatcha']
-                ],
-            ],
+            ]
         ];
     }
 
