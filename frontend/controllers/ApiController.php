@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 use common\telegram\helpers\CartHelper;
+use common\telegram\text\TextFactory;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
@@ -54,7 +55,7 @@ class ApiController extends Controller
         $items = Cart::find()->where(['user_id' => $chatId, 'status' => Cart::STATUS_ACTIVE])->all();
 
         if (!$items) {
-            Yii::$app->telegram->sendMessage($chatId, "Savatchangiz bo‘sh 😕");
+            Yii::$app->telegram->sendMessage($chatId, TextFactory::emptyCartText(), KeyboardFactory::openMenuInline($chatId));
             return ['ok' => true, 'empty' => true];
         }
 

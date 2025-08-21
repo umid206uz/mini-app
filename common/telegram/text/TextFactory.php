@@ -43,7 +43,7 @@ class TextFactory
 
     public static function emptyCartText(): string
     {
-        return 'Sizning savatchangiz hozircha bo\'sh 😕';
+        return "Sizning savatchangiz hozircha bo'sh \n\n Menyuni ochib savatchani to'ldirishingiz mumkin ☺";
     }
 
     public static function orderCancelledText(): string

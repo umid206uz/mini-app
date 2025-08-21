@@ -18,7 +18,7 @@ class MenuHandler
         if ($message == '🛒 Savatcha'){
             $model = Cart::find()->where(['user_id' => $session->chat_id, 'status' => Cart::STATUS_ACTIVE])->all();
             if (!$model){
-                Yii::$app->telegram->sendMessage($chatId, TextFactory::emptyCartText(), KeyboardFactory::mainMenu());
+                Yii::$app->telegram->sendMessage($chatId, TextFactory::emptyCartText(), KeyboardFactory::openMenuInline($chatId));
                 return;
             }
 
