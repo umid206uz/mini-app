@@ -61,6 +61,18 @@ class KeyboardFactory
         ];
     }
 
+    public static function cartInline(): array
+    {
+        return [
+            'inline_keyboard' => [
+                [
+                    ['text' => "📝 Buyurtma berish",  'callback_data' => 'order_confirm'],
+                    ['text' => "🗑 Savatni tozalash", 'callback_data' => 'order_cancel'],
+                ]
+            ]
+        ];
+    }
+
     public static function verification(): array
     {
         return [

@@ -22,8 +22,7 @@ class MenuHandler
                 return;
             }
 
-
-
+            Yii::$app->telegram->sendMessage($chatId, TextFactory::cartText($model), KeyboardFactory::cartInline());
         }
     }
 }
