@@ -21,44 +21,44 @@ class TelegramRouter
         'checkout'   => OrderCallbackHandler::class,
     ];
 
-    public function handle($chatId, $message, $info)
+    public function handle($chat_id, $message_text, $message_object, $response)
     {
-        $session = (new TelegramSession())->getSession($chatId);
+        $session = (new TelegramSession())->getSession($chat_id);
 
-        if ($message === '/start') {
+        if ($message_text === '/start') {
             $session->reset();
-            (new $this->handlers['/start'])->handle($chatId, $session);
+            (new $this->handlers['/start'])->handle($chat_id, $session, $message_object, $response);
             return;
         }
 
         switch ($session->step) {
 
             case TelegramSession::STEP_PHONE:
-                (new $this->handlers['phone'])->handle($chatId, $info, $session);
+                (new $this->handlers['phone'])->handle($chat_id, $message_object, $session);
                 break;
 
             case TelegramSession::STEP_VERIFICATION:
-                (new $this->handlers['verification'])->handle($chatId, $message, $session);
+                (new $this->handlers['verification'])->handle($chat_id, $message_text, $session);
                 break;
 
             case TelegramSession::STEP_MENU:
-                (new $this->handlers['menu'])->handle($chatId, $message, $info, $session);
+                (new $this->handlers['menu'])->handle($chat_id, $message_text, $message_object, $session);
                 break;
 
             case TelegramSession::STEP_CHECKOUT:
-                (new $this->handlers['checkout'])->handle($chatId, $message, $info, $session);
+                (new $this->handlers['checkout'])->handle($chat_id, $message_text, $message_object, $session);
                 break;
 
             default:
-                (new DefaultHandler())->handle($chatId, $info);
+                (new DefaultHandler())->handle($chat_id, $message_object);
         }
     }
 
-    public function handleCallback($chatId, $text_button, $callback)
+    public function handleCallback($chat_id, $text_button, $callback)
     {
-        $session = (new TelegramSession())->getSession($chatId);
+        $session = (new TelegramSession())->getSession($chat_id);
 
-        (new $this->handlers['checkout'])->handle($chatId, $text_button, $callback, $session);
+        (new $this->handlers['checkout'])->handle($chat_id, $text_button, $callback, $session);
     }
 
 }
