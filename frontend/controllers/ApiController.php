@@ -75,8 +75,6 @@ class ApiController extends Controller
         $text .= "\n\nJami: {$total} so‘m\n";
         $text .= "Tasdiqlaysizmi?";
 
-        $session = TelegramSession::getSession($chatId);
-        $session->setStep(TelegramSession::STEP_CHECKOUT);
         Yii::$app->telegram->sendMessage($chatId, $text, KeyboardFactory::confirmOrderInline(), 'HTML');
         return ['ok' => true];
     }
