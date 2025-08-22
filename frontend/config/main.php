@@ -1,4 +1,8 @@
 <?php
+
+use yii\filters\Cors;
+use yii\log\FileTarget;
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
@@ -26,14 +30,13 @@ return [
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
         ],
         'session' => [
-            // this is the name of the session cookie used for login on the frontend
             'name' => 'advanced-frontend',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
-                    'class' => \yii\log\FileTarget::class,
+                    'class' => FileTarget::class,
                     'levels' => ['error', 'warning'],
                 ],
             ],
@@ -47,18 +50,19 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'checkout' => 'api/checkout',
+                'sms-call-back' => 'api/sms-call-back',
             ],
         ],
 
     ],
     'as corsFilter' => [
-        'class' => \yii\filters\Cors::class,
+        'class' => Cors::class,
         'cors' => [
-            'Origin' => ['https://shop.sugo.uz'], // faqat sizning domen
+            'Origin' => ['https://shop.sugo.uz'],
             'Access-Control-Request-Method' => ['POST', 'GET', 'OPTIONS'],
             'Access-Control-Request-Headers' => ['*'],
-            'Access-Control-Allow-Credentials' => true, // kerak bo‘lsa
-            'Access-Control-Max-Age' => 3600, // 1 soat
+            'Access-Control-Allow-Credentials' => true,
+            'Access-Control-Max-Age' => 3600
         ],
     ],
     'params' => $params,
