@@ -65,7 +65,7 @@ JS
     </div>
 <?php
 Modal::begin([
-    'header' => "<h4>" . Yii::t("app","Change status") . "</h4>",
+    'title' => "<h4>" . Yii::t("app","Change status") . "</h4>",
     'id' => "myModal",
     "size" => "modal-lg",
 ]);
@@ -74,7 +74,7 @@ echo "<div id='modalContent'></div>";
 
 Modal::end();
 Modal::begin([
-    'header' => "<h4>" . Yii::t("app","Order Details") . "</h4>",
+    'title' => "<h4>" . Yii::t("app","Order Details") . "</h4>",
     'id' => "orderDetailModal",
     "size" => "modal-lg",
 ]);
