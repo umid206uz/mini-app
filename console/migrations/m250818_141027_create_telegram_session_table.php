@@ -18,7 +18,7 @@ class m250818_141027_create_telegram_session_table extends Migration
             'step' => $this->integer()->defaultValue(0)->notNull(),
             'phone' => $this->string(50),
             'phone_verified' => $this->integer()->defaultValue(0)->notNull(),
-            'verification_token' => $this->string()->unique(),
+            'verification_token' => $this->string(191)->unique(),
             'updated_at' => $this->integer()->defaultValue(time())->notNull(),
         ]);
     }
