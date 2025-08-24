@@ -3,14 +3,14 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use common\models\Setting;
+//use common\models\Setting;
 use operator\models\User;
 use yii\helpers\Html;
 use operator\assets\AppAsset;
 use operator\assets\ProfileAsset;
 use yii\helpers\Url;
 
-$setting = Setting::findOne(1);
+//$setting = Setting::findOne(1);
 $user = User::findOne(Yii::$app->user->id);
 $user_role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
 $user_role = reset($user_role);
@@ -30,7 +30,7 @@ if (Yii::$app->controller->action->id == 'account'){
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <link rel="icon" href="https://<?=Yii::$app->params['og_site_name']['content']?>/backend/web/uploads/<?=$setting->favicon?>" type="image/x-icon">
+<!--    <link rel="icon" href="https://--><?//=Yii::$app->params['og_site_name']['content']?><!--/backend/web/uploads/--><?//=$setting->favicon?><!--" type="image/x-icon">-->
 </head>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
 <?php $this->beginBody() ?>
@@ -41,7 +41,7 @@ if (Yii::$app->controller->action->id == 'account'){
         <!-- BEGIN LOGO -->
         <div class="page-logo">
             <a href="<?= ($user_role->name == 'operator') ? Url::to(['operator/index']) : Url::to(['returned/index'])?>">
-                <img style="margin-top: 7px" src="https://<?=Yii::$app->params['og_site_name']['content']?>/backend/web/uploads/<?=$setting->logo_bottom?>" alt="logo" class="logo-default" /></a>
+<!--                <img style="margin-top: 7px" src="https://--><?//=Yii::$app->params['og_site_name']['content']?><!--/backend/web/uploads/--><?//=$setting->logo_bottom?><!--" alt="logo" class="logo-default" /></a>-->
             <div class="menu-toggler sidebar-toggler">
                 <span></span>
             </div>
