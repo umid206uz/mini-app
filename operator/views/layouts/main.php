@@ -41,7 +41,7 @@ if (Yii::$app->controller->action->id == 'account'){
         <!-- BEGIN LOGO -->
         <div class="page-logo">
             <a href="<?= ($user_role->name == 'operator') ? Url::to(['operator/index']) : Url::to(['returned/index'])?>">
-                <img style="margin-top: 7px" src="template/layouts/layout/img/logo.png" alt="logo" class="logo-default" /></a>
+                <img style="margin-top: 7px" src="/template/layouts/layout/img/logo.png" alt="logo" class="logo-default" /></a>
             <div class="menu-toggler sidebar-toggler">
                 <span></span>
             </div>
