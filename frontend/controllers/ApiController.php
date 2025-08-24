@@ -64,7 +64,7 @@ class ApiController extends Controller
         return ['ok' => true];
     }
 
-    public function actionSmsCallback(): array
+    public function actionSmsCallBack(): array
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
 
