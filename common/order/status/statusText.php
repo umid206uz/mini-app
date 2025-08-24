@@ -11,6 +11,8 @@ class statusText
     {
         if ($status == Orders::STATUS_NEW){
             return '<span class="badge bg-primary">'. Yii::t("app", "New") .'</span>';
+        }else{
+            return (string) $status;
         }
     }
 }
