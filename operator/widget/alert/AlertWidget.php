@@ -1,7 +1,7 @@
 <?php
 namespace operator\widget\alert;
 
-use yii\bootstrap\Widget;
+use yii\bootstrap5\Widget;
 
 class AlertWidget extends Widget
 {
