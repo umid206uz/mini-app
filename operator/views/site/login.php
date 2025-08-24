@@ -1,12 +1,12 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
+/* @var $form yii\bootstrap5\ActiveForm */
 
-/* @var $model \common\models\LoginForm */
+/* @var $model common\models\LoginForm */
 
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 use yii\helpers\Url;
 
 $this->title = Yii::t("app", "Login");
@@ -29,23 +29,23 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label visible-ie8 visible-ie9">Password</label>
-        <div class="input-icon">
-            <?= $form->field($model, 'password')->passwordInput(['class' => 'form-control placeholder-no-fix', 'placeholder' => 'Parolni kiriting'])->label(false) ?>
-        </div>
-        <div class="form-actions">
-            <label class="rememberme mt-checkbox mt-checkbox-outline">
-                <input type="checkbox" name="remember" value="1" /> <?=Yii::t("app", "Remember me")?>
-                <span></span>
-            </label>
-            <button type="submit" class="btn green pull-right"> <?=Yii::t("app", "Login")?> </button>
-        </div>
-        <div class="create-account">
-            <p> Sizda hali profil yo'qmi ?&nbsp;
-                <a href="<?= Url::to(['site/signup'])?>"> <?=Yii::t("app", "Sign up")?> </a>
-            </p>
-        </div>
-        <?php ActiveForm::end(); ?>
-        <!-- END LOGIN FORM -->
+    <label class="control-label visible-ie8 visible-ie9">Password</label>
+    <div class="input-icon">
+        <?= $form->field($model, 'password')->passwordInput(['class' => 'form-control placeholder-no-fix', 'placeholder' => 'Parolni kiriting'])->label(false) ?>
     </div>
-    <!-- END LOGIN -->
+    <div class="form-actions">
+        <label class="rememberme mt-checkbox mt-checkbox-outline">
+            <input type="checkbox" name="remember" value="1" /> <?=Yii::t("app", "Remember me")?>
+            <span></span>
+        </label>
+        <button type="submit" class="btn green pull-right"> <?=Yii::t("app", "Login")?> </button>
+    </div>
+    <div class="create-account">
+        <p> Sizda hali profil yo'qmi ?&nbsp;
+            <a href="<?= Url::to(['site/signup'])?>"> <?=Yii::t("app", "Sign up")?> </a>
+        </p>
+    </div>
+    <?php ActiveForm::end(); ?>
+    <!-- END LOGIN FORM -->
+</div>
+<!-- END LOGIN -->
