@@ -7,6 +7,7 @@ use phpDocumentor\Reflection\Types\This;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use kartik\password\StrengthValidator;
@@ -49,7 +50,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%user}}';
     }
@@ -109,7 +110,7 @@ class User extends ActiveRecord implements IdentityInterface
      * {@inheritdoc}
      */
 
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'oldpass' => Yii::t("app", "Old Password"),
@@ -228,7 +229,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $token password reset token
      * @return bool
      */
-    public static function isPasswordResetTokenValid($token)
+    public static function isPasswordResetTokenValid($token): bool
     {
         if (empty($token)) {
             return false;
@@ -269,7 +270,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $password password to validate
      * @return bool if password provided is valid for current user
      */
-    public function validatePassword($password)
+    public function validatePassword($password): bool
     {
         return Yii::$app->security->validatePassword($password, $this->password_hash);
     }
@@ -313,11 +314,13 @@ class User extends ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
 
-    public function getRole(){
+    public function getRole(): ActiveQuery
+    {
         return $this->hasOne(AuthAssignment::className(), ['user_id' => 'id']);
     }
 
-    public function getAvatar(){
+    public function getAvatar(): string
+    {
         if ($this->filename == '' || !file_exists('uploads/user/' . $this->filename)){
             return 'https://' . Yii::$app->params['og_site_name']['content'] . '/backend/web/uploads/' . Setting::findOne(1)->open_graph_photo;
         }else{
@@ -325,7 +328,7 @@ class User extends ActiveRecord implements IdentityInterface
         }
     }
 
-    public function getFullName()
+    public function getFullName(): string
     {
         if ($this->first_name == ''){
             return Yii::t("app", "Full name");
