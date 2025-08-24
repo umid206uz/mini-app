@@ -50,7 +50,6 @@ class SignupForm extends Model
         $user->username = $this->username;
         $user->email = $this->email;
         $user->setPassword($this->password);
-        $user->access_token = rand(100000, 999999) . time();
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
         
