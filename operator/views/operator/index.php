@@ -9,7 +9,7 @@
 use operator\widget\alert\AlertWidget;
 use operator\widget\count\CountWidget;
 use yii\widgets\LinkPager;
-use yii\bootstrap\Modal;
+use yii\bootstrap5\Modal;
 use operator\widget\orders\OrdersWidget;
 
 $this->title = Yii::t("app", "New orders");
@@ -159,7 +159,7 @@ JS
     <!-- END CONTENT -->
 <?php
 Modal::begin([
-    'header' => "<h4>" . Yii::t("app", "Change status") . "</h4>",
+    'title' => "<h4>" . Yii::t("app", "Change status") . "</h4>",
     'id' => "myModal",
     "size" => "modal-lg",
 ]);
