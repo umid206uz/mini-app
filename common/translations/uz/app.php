@@ -34,4 +34,5 @@ return [
     "Additional information" => "Qo'shimcha ma'lumot",
     "Total price" => "Jami summa",
     "Order ID" => "Buyurtma ID",
+    "Users" => "Foydalanuvchilar",
 ];
