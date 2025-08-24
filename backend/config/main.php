@@ -80,14 +80,16 @@ return [
             ],
         ],
 
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager'
+        ]
+
     ],
 
     'as access' => [
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
-            'site/*',
-            'backend/*',
-            'some-controller/some-action'
+            'site/login',
         ]
     ],
 
