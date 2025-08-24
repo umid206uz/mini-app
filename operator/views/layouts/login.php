@@ -1,14 +1,14 @@
 <?php
 
-/* @var $this \yii\web\View */
+/* @var $this yii\web\View */
 
 /* @var $content string */
 
 use yii\helpers\Html;
 use operator\assets\LoginAsset;
-use common\models\Setting;
+//use common\models\Setting;
 
-$setting = Setting::findOne(1);
+//$setting = Setting::findOne(1);
 LoginAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -20,16 +20,16 @@ LoginAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <link rel="icon" href="https://<?=Yii::$app->params['og_site_name']['content']?>/backend/web/uploads/<?=$setting->favicon?>" type="image/x-icon">
+<!--    <link rel="icon" href="https://--><?//=Yii::$app->params['og_site_name']['content']?><!--/backend/web/uploads/--><?//=$setting->favicon?><!--" type="image/x-icon">-->
 </head>
 <body class="login">
 <?php $this->beginBody() ?>
     <!-- BEGIN LOGO -->
-    <div class="logo">
-        <a href="/">
-            <img style="max-width: 200px;" src="https://<?=Yii::$app->params['og_site_name']['content']?>/backend/web/uploads/<?=$setting->logo?>" alt="">
-        </a>
-    </div>
+<!--    <div class="logo">-->
+<!--        <a href="/">-->
+<!--            <img style="max-width: 200px;" src="https://--><?//=Yii::$app->params['og_site_name']['content']?><!--/backend/web/uploads/--><?//=$setting->logo?><!--" alt="">-->
+<!--        </a>-->
+<!--    </div>-->
     <!-- END LOGO -->
     <?= $content ?>
     <!-- BEGIN COPYRIGHT -->
