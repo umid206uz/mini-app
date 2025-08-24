@@ -15,11 +15,15 @@ return [
     'language' => 'uz',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'gii'],
     'modules' => [
         'gridview' =>  [
             'class' => 'kartik\grid\Module'
-        ]
+        ],
+        'gii' => [
+            'class' => 'yii\gii\Module',
+            'allowedIPs' => ['*']
+        ],
     ],
     'components' => [
         'request' => [
