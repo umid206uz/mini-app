@@ -22,5 +22,8 @@ return [
         'sms' => [
             'class' => 'common\components\Sms',
         ],
+        'formatter' => [
+            'class' => 'common\components\FormatterHelper',
+        ],
     ],
 ];

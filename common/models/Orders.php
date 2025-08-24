@@ -42,6 +42,9 @@ class Orders extends ActiveRecord
     }
 
     const STATUS_NEW = 0;
+    const STATUS_BEING_DELIVERED = 1;
+    const STATUS_DELIVERED = 2;
+    const STATUS_THEN_TAKES = 5;
 
     /**
      * {@inheritdoc}

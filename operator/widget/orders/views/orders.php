@@ -6,8 +6,8 @@
 use common\models\Orders;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\bootstrap\Modal;
-$product = $item->product;
+use yii\bootstrap5\Modal;
+
 $operator_id = Yii::$app->user->id;
 $action = Yii::$app->controller->action->id;
 $this->registerJs(<<<JS
@@ -46,12 +46,6 @@ JS
                     <?php endif;?>
                 </div>
                 <hr>
-                <div>
-                    <strong><?=Yii::t("app","Order Details")?>:</strong>
-                    <ul class="list-group">
-                        <li class="list-group-item"><?=$product->title?> x <?=$item->count?></li>
-                    </ul>
-                </div>
                 <div class="clearfix">
                     <?= Html::button(($item->operator_id === null ? '<i class="fa fa-check"></i> ' . Yii::t("app","Acceptance") : '<i class="fa fa-check-square"></i> ' . Yii::t("app","Accepted")), [
                         'class' => 'btn btn-primary orders',
