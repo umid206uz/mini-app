@@ -24,6 +24,18 @@ return [
             'class' => 'yii\gii\Module',
             'allowedIPs' => ['*']
         ],
+        'rbac' => [
+            'class' => 'mdm\admin\Module',
+            'layout' => 'left-menu',
+            'mainLayout' => '@app/views/layouts/main.php',
+            'controllerMap' => [
+                'assignment' => [
+                    'class' => 'mdm\admin\controllers\AssignmentController',
+                    'idField' => 'id',
+                    'usernameField' => 'username',
+                ],
+            ],
+        ],
     ],
     'components' => [
         'request' => [
@@ -68,6 +80,15 @@ return [
             ],
         ],
 
+    ],
+
+    'as access' => [
+        'class' => 'mdm\admin\components\AccessControl',
+        'allowActions' => [
+            'site/*',
+            'admin/*',
+            'some-controller/some-action'
+        ]
     ],
 
     'params' => $params,
