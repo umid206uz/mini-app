@@ -25,5 +25,8 @@ return [
         'formatter' => [
             'class' => 'common\components\FormatterHelper',
         ],
+        'status' => [
+            'class' => 'common\components\Status',
+        ],
     ],
 ];

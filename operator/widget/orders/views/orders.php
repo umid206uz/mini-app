@@ -1,7 +1,6 @@
 <?php
 
 /* @var $item common\models\Orders */
-/* @var $product common\models\Product */
 
 use common\models\Orders;
 use yii\helpers\Html;
