@@ -90,7 +90,7 @@ class ApiController extends Controller
 
         $providerId = $payload['message_id']     ?? $payload['id']           ?? null;
         $userSmsId  = $payload['user_sms_id']    ?? $payload['dispatch_id']  ?? null;
-        $phone      = $payload['mobile_phone']   ?? $payload['msisdn']       ?? null;
+        $phone      = $payload['phone_number']   ?? $payload['msisdn']       ?? null;
         $statusRaw  = strtolower((string)($payload['status'] ?? $payload['message'] ?? ''));
 
         $log = null;
