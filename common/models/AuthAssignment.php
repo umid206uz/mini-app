@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "auth_assignment".
@@ -13,14 +15,14 @@ use Yii;
  *
  * @property AuthItem $itemName
  */
-class AuthAssignment extends \yii\db\ActiveRecord
+class AuthAssignment extends ActiveRecord
 {
 
 
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'auth_assignment';
     }
@@ -43,7 +45,7 @@ class AuthAssignment extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'item_name' => 'Item Name',
@@ -55,9 +57,9 @@ class AuthAssignment extends \yii\db\ActiveRecord
     /**
      * Gets query for [[ItemName]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getItemName()
+    public function getItemName(): ActiveQuery
     {
         return $this->hasOne(AuthItem::class, ['name' => 'item_name']);
     }
