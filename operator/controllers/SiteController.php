@@ -22,7 +22,7 @@ use Yii;
  */
 class SiteController extends Controller
 {
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             'access' => [
@@ -50,19 +50,18 @@ class SiteController extends Controller
         ];
     }
 
-    public function beforeAction($action)
+    public function beforeAction($action): bool
     {
         $user = User::findOne(Yii::$app->user->id);
-        $model = Setting::findOne(1);
         $allowedRoles = ['operator_returned', 'operator'];
-        if(!$user || !$user->role || !in_array($user->role->item_name, $allowedRoles) || $model->switch == 0) {
+        if(!$user || !$user->role || !in_array($user->role->item_name, $allowedRoles)) {
             Yii::$app->user->logout();
         }
 
         return parent::beforeAction($action);
     }
 
-    public function actions()
+    public function actions(): array
     {
         return [
             'error' => [
