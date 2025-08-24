@@ -1,7 +1,7 @@
 <?php
 namespace operator\widget\order;
 
-use yii\bootstrap\Widget;
+use yii\bootstrap5\Widget;
 
 class OrderWidget extends Widget
 {
