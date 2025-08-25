@@ -6319,9 +6319,9 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "kartik-v/yii2-grid": 20,
-        "kartik-v/yii2-widget-select2": 20,
+        "kartik-v/yii2-password": 20,
         "kartik-v/yii2-widget-fileinput": 20,
-        "kartik-v/yii2-password": 20
+        "kartik-v/yii2-widget-select2": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
@@ -6330,6 +6330,6 @@
         "ext-json": "*",
         "ext-curl": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
